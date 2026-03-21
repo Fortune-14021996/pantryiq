@@ -548,7 +548,7 @@ function saveInv(){
     d.items[k].purchases.push({date:_p.order_date,qty:item.qty});
   });
   d.invoices.push({date:_p.order_date,count:_p.items.length});
-  save(d);
+  save(d);markDirty();
   document.getElementById('preview').innerHTML='';
   document.getElementById('inv-txt').value='';
   _p=null;
@@ -559,7 +559,19 @@ function saveInv(){
 function onJSON(input){
   const f=input.files[0];if(!f)return;
   const r=new FileReader();
-  r.onload=e=>{try{merge(JSON.parse(e.target.result))}catch{toast('Invalid JSON file')}};
+  r.onload=e=>{
+    try{
+      const txt=e.target.result.trim();
+      const j=JSON.parse(txt);
+      if(!j.items||!j.invoices){toast('❌ Wrong format — use pantryiq-data.json');return}
+      merge(j);
+    }catch(err){
+      toast('❌ Could not read file: '+err.message.slice(0,40));
+    }
+    // Reset so same file can be re-imported
+    input.value='';
+  };
+  r.onerror=()=>toast('❌ File read error');
   r.readAsText(f);
 }
 
@@ -572,7 +584,7 @@ function merge(imp){
     if(!d.items[k])d.items[k]=v;
     else{const ed=new Set(d.items[k].purchases.map(p=>p.date));v.purchases.forEach(p=>{if(!ed.has(p.date))d.items[k].purchases.push(p)})}
   });
-  save(d);renderHome();renderHist();renderInsights();
+  save(d);markDirty();renderHome();renderHist();renderInsights();
   toast(`✅ Imported ${Object.keys(imp.items).length} products!`);go('home');
 }
 
@@ -585,14 +597,25 @@ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t
 // ─────────────────────────────────────────────
 // NAVIGATION
 // ─────────────────────────────────────────────
+let _lastPage=null;
+let _dirtyFlag=false; // set true when data changes
+
+function markDirty(){_dirtyFlag=true}
+
 function go(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   document.getElementById('nb-'+name).classList.add('active');
-  if(name==='home')renderHome();
-  if(name==='insights')renderInsights();
-  if(name==='add')renderHist();
+  // Only re-render if page changed OR data is dirty
+  const changed=(_lastPage!==name)||_dirtyFlag;
+  if(changed){
+    if(name==='home')renderHome();
+    if(name==='insights')renderInsights();
+    if(name==='add')renderHist();
+    _dirtyFlag=false;
+  }
+  _lastPage=name;
   window.scrollTo(0,0);
 }
 
@@ -602,7 +625,7 @@ function go(name){
 function resetAll(){
   const code=getActive();
   if(!confirm(`Reset ALL data for household "${code}"? This cannot be undone.`))return;
-  localStorage.removeItem(dataKey(code));
+  localStorage.removeItem(dataKey(code));markDirty();
   document.getElementById('preview').innerHTML='';
   document.getElementById('inv-txt').value='';
   document.getElementById('hist').innerHTML='';
