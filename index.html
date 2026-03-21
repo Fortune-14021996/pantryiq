@@ -207,33 +207,56 @@ code{font-family:var(--mono);font-size:12px;background:var(--s3);padding:1px 5px
 <main class="main">
   <div class="page active" id="page-home"><div id="home-c"></div></div>
   <div class="page" id="page-add">
-    <div class="add-top">
-      <div class="add-top-t">Add Invoice</div>
-      <div class="add-top-s">Import your pantryiq-data.json or paste a Swiggy delivery email.</div>
+    <div style="padding:18px 0 4px">
+      <div style="font-size:22px;font-weight:600;letter-spacing:-0.3px">Add Bills</div>
+      <div style="font-size:13px;color:var(--t2);margin-top:4px;line-height:1.5">Keep your pantry up to date by adding new Instamart orders.</div>
     </div>
+
     <div id="inst-slot"></div>
-    <div class="imp-box" id="imp-box">
-      <input type="file" accept=".json" id="jf" onchange="onJSON(this)">
-      <div class="imp-icon">📦</div>
-      <div class="imp-t">Import pantryiq-data.json</div>
-      <div class="imp-s">Tap to select · drag & drop works too</div>
+
+    <!-- WAY 1: File from Claude -->
+    <div style="background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin:14px 0 8px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="font-size:22px">📂</div>
+        <div>
+          <div style="font-size:14px;font-weight:600">Upload data file</div>
+          <div style="font-size:12px;color:var(--t2);margin-top:1px">From Claude's data export</div>
+        </div>
+      </div>
+      <label style="display:block;width:100%;padding:12px;background:var(--acc);color:#fff;border-radius:10px;text-align:center;font-size:14px;font-weight:600;cursor:pointer">
+        Choose File
+        <input type="file" accept=".json,application/json,text/plain,*/*" id="jf" onchange="onJSON(this)" style="display:none">
+      </label>
+      <div id="file-status" style="font-size:12px;color:var(--t3);margin-top:8px;text-align:center">No file chosen</div>
     </div>
-    <div class="divd">or paste email text</div>
-    <textarea id="inv-txt" placeholder="Paste Swiggy delivery email here&#10;&#10;Order Items&#10;1 x Lemon (Nimbe Hannu) ₹34.00&#10;2 x Onion (Eerulli) ₹50.00&#10;1 x Licious Chicken Breast Boneless ₹260.00"></textarea>
-    <button class="btn btn-p" onclick="parse()">✨ Extract Items</button>
+
+    <!-- WAY 2: Paste email -->
+    <div style="background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:8px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="font-size:22px">📧</div>
+        <div>
+          <div style="font-size:14px;font-weight:600">Paste delivery email</div>
+          <div style="font-size:12px;color:var(--t2);margin-top:1px">Open Swiggy email → copy all text → paste here</div>
+        </div>
+      </div>
+      <textarea id="inv-txt" rows="4" placeholder="Copy the delivery email text and paste it here..."></textarea>
+      <button class="btn btn-p" onclick="parse()" style="margin-top:8px">Add Order</button>
+    </div>
+
     <div id="preview"></div>
-    <div id="hist" style="margin-top:22px"></div>
+    <div id="hist" style="margin-top:16px"></div>
 
-    <div style="margin-top:32px;padding-top:20px;border-top:1px solid var(--border)">
-      <div style="font-size:11px;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px">Household</div>
-      <div id="current-household-info" style="font-size:13px;color:var(--t2);margin-bottom:12px"></div>
-      <button class="btn" onclick="showSetup()" style="background:var(--s2);color:var(--t2);border:1px solid var(--border);margin-top:0">🔀 Switch Household</button>
+    <!-- Household switcher -->
+    <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--border)">
+      <div style="font-size:13px;font-weight:600;margin-bottom:10px">🏠 Household Settings</div>
+      <div id="current-household-info" style="font-size:13px;color:var(--t2);margin-bottom:10px"></div>
+      <button class="btn" onclick="showSetup()" style="background:var(--s2);color:var(--t2);border:1px solid var(--border);margin-top:0">Switch Household</button>
     </div>
 
+    <!-- Reset -->
     <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
-      <div style="font-size:11px;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px">Danger Zone</div>
-      <button class="btn" onclick="resetAll()" style="background:var(--red-d);color:var(--red);border:1px solid var(--red-b);margin-top:0">🗑️ Reset This Household's Data</button>
-      <div style="font-size:11px;color:var(--t3);margin-top:8px;text-align:center;line-height:1.5">Only clears data for the current household.<br>Other households are not affected.</div>
+      <button class="btn" onclick="resetAll()" style="background:var(--red-d);color:var(--red);border:1px solid var(--red-b);margin-top:0">🗑️ Clear All Data</button>
+      <div style="font-size:11px;color:var(--t3);margin-top:8px;text-align:center;line-height:1.5">Only clears this household. Cannot be undone.</div>
     </div>
   </div>
   <div class="page" id="page-insights"><div id="ins-c"></div></div>
@@ -557,35 +580,54 @@ function saveInv(){
 }
 
 function onJSON(input){
-  const f=input.files[0];if(!f)return;
+  const f=input.files[0];
+  if(!f)return;
+  const statusEl=document.getElementById('file-status');
+  if(statusEl)statusEl.textContent='Reading '+f.name+'...';
   const r=new FileReader();
   r.onload=e=>{
     try{
-      const txt=e.target.result.trim();
+      let txt=e.target.result.trim();
+      // Strip BOM if present
+      if(txt.charCodeAt(0)===0xFEFF)txt=txt.slice(1);
       const j=JSON.parse(txt);
-      if(!j.items||!j.invoices){toast('❌ Wrong format — use pantryiq-data.json');return}
+      if(!j.items||!j.invoices){
+        if(statusEl)statusEl.textContent='❌ Wrong file — needs pantryiq-data.json';
+        toast('❌ Wrong file format');
+        return;
+      }
+      if(statusEl)statusEl.textContent='✅ '+f.name+' loaded!';
       merge(j);
     }catch(err){
-      toast('❌ Could not read file: '+err.message.slice(0,40));
+      if(statusEl)statusEl.textContent='❌ Could not read file';
+      toast('❌ '+err.message.slice(0,50));
     }
-    // Reset so same file can be re-imported
     input.value='';
   };
-  r.onerror=()=>toast('❌ File read error');
-  r.readAsText(f);
+  r.onerror=()=>{
+    if(statusEl)statusEl.textContent='❌ File read failed';
+    toast('❌ Could not open file');
+  };
+  r.readAsText(f,'UTF-8');
 }
 
 function merge(imp){
-  if(!imp.items||!imp.invoices){toast('Invalid format');return}
+  if(!imp.items||!imp.invoices){toast('❌ Wrong format — use pantryiq-data.json');return}
   const d=load();
   const ex=new Set(d.invoices.map(i=>i.date));
-  imp.invoices.forEach(i=>{if(!ex.has(i.date))d.invoices.push(i)});
+  let newInv=0,newProds=0;
+  imp.invoices.forEach(i=>{if(!ex.has(i.date)){d.invoices.push(i);newInv++}});
   Object.entries(imp.items).forEach(([k,v])=>{
-    if(!d.items[k])d.items[k]=v;
+    if(!d.items[k]){d.items[k]=v;newProds++}
     else{const ed=new Set(d.items[k].purchases.map(p=>p.date));v.purchases.forEach(p=>{if(!ed.has(p.date))d.items[k].purchases.push(p)})}
   });
-  save(d);markDirty();renderHome();renderHist();renderInsights();
-  toast(`✅ Imported ${Object.keys(imp.items).length} products!`);go('home');
+  save(d);markDirty();
+  // Safe renders — check element exists before touching it
+  renderHome();
+  const hel=document.getElementById('hist');if(hel)renderHist();
+  renderInsights();
+  toast('✅ '+Object.keys(imp.items).length+' products · '+imp.invoices.length+' orders loaded!');
+  go('home');
 }
 
 // ─────────────────────────────────────────────
