@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0a0a0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="PantryIQ">
+<link rel="manifest" href="/pantryiq/manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>PantryIQ</title>
+<style>
+:root{
+  --bg:#0a0a0f;--s1:#13131f;--s2:#1c1c2e;--s3:#252538;--s4:#2e2e45;
+  --acc:#7b6fff;--acc-dim:rgba(123,111,255,0.12);--acc-border:rgba(123,111,255,0.25);
+  --tx:#f0eeff;--t2:#9896b8;--t3:#55537a;
+  --red:#ff5252;--red-d:rgba(255,82,82,0.1);--red-b:rgba(255,82,82,0.22);
+  --amb:#ffb526;--amb-d:rgba(255,181,38,0.1);--amb-b:rgba(255,181,38,0.22);
+  --grn:#34d399;--grn-d:rgba(52,211,153,0.07);--grn-b:rgba(52,211,153,0.2);
+  --border:rgba(255,255,255,0.055);
+  --font:'DM Sans',-apple-system,sans-serif;
+  --mono:'DM Mono',monospace;
+  --r:16px;--rsm:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overscroll-behavior:none}
+body{font-family:var(--font);background:var(--bg);color:var(--tx);max-width:430px;margin:0 auto;overflow-x:hidden}
+
+/* HDR */
+.hdr{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:100;padding:env(safe-area-inset-top,0) 0 0;background:rgba(10,10,15,0.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.hdr-i{display:flex;align-items:center;justify-content:space-between;padding:13px 20px 12px}
+.logo{font-size:18px;font-weight:600;letter-spacing:-0.4px}
+.logo b{color:var(--acc);font-weight:600}
+.hdr-right{display:flex;align-items:center;gap:8px}
+.hdr-date{font-size:11px;color:var(--t3)}
+.add-btn{background:var(--acc);color:#fff;border:none;border-radius:20px;padding:7px 15px;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s}
+.add-btn:active{transform:scale(0.96)}
+
+/* MAIN */
+.main{padding-top:70px;padding-bottom:86px}
+.page{display:none;padding:0 16px 16px}
+.page.active{display:block}
+
+/* HERO */
+.hero{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:20px;margin:14px 0 10px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-50px;right:-30px;width:130px;height:130px;border-radius:50%;background:var(--acc-dim);pointer-events:none}
+.hero-eyebrow{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:1.2px;font-weight:600;margin-bottom:8px}
+.hero-h{font-size:24px;font-weight:600;letter-spacing:-0.4px;line-height:1.25;margin-bottom:5px}
+.c-red{color:var(--red)}.c-amb{color:var(--amb)}.c-grn{color:var(--grn)}
+.hero-sub{font-size:13px;color:var(--t2);line-height:1.55}
+.order-btn{width:100%;margin-top:15px;padding:13px;border-radius:12px;background:var(--acc);color:#fff;border:none;font-family:var(--font);font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:all 0.15s}
+.order-btn:active{transform:scale(0.98)}
+
+/* SECTION HDR */
+.sh{display:flex;align-items:center;justify-content:space-between;margin:18px 0 8px}
+.sh-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.9px;color:var(--t3)}
+.sh-n{font-size:11px;color:var(--t3);font-family:var(--mono)}
+
+/* ITEM */
+.items{display:flex;flex-direction:column;gap:5px;margin-bottom:2px}
+.item{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:11px 13px;display:flex;align-items:center;gap:11px;position:relative;overflow:hidden;animation:fu 0.2s ease both}
+.item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2.5px;border-radius:2px 0 0 2px}
+.item.red::before{background:var(--red)}.item.amb::before{background:var(--amb)}.item.grn::before{background:var(--grn)}
+.ie{font-size:21px;width:33px;text-align:center;flex-shrink:0;line-height:1}
+.ib{flex:1;min-width:0}
+.in{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.im{font-size:11px;color:var(--t3);margin-top:2px;font-family:var(--mono)}
+.ir{text-align:right;flex-shrink:0}
+.dp{font-size:11px;font-weight:600;padding:4px 9px;border-radius:18px;display:inline-block;font-family:var(--mono)}
+.dp.red{background:var(--red-d);color:var(--red)}.dp.amb{background:var(--amb-d);color:var(--amb)}.dp.grn{background:var(--grn-d);color:var(--grn)}
+.od{font-size:10px;color:var(--t3);margin-top:3px;font-family:var(--mono)}
+.bar{height:2px;background:var(--s3);border-radius:1px;margin-top:6px;overflow:hidden}
+.bar-f{height:100%;border-radius:1px}
+
+/* EMPTY */
+.empty{text-align:center;padding:56px 20px}
+.empty-icon{font-size:46px;margin-bottom:14px;opacity:0.3}
+.empty-t{font-size:17px;font-weight:600;color:var(--t2);margin-bottom:6px}
+.empty-s{font-size:13px;color:var(--t3);line-height:1.6}
+
+/* ADD PAGE */
+.add-top{padding:18px 0 6px}
+.add-top-t{font-size:22px;font-weight:600;letter-spacing:-0.3px}
+.add-top-s{font-size:13px;color:var(--t2);margin-top:4px;line-height:1.5}
+.imp-box{background:var(--s1);border:1.5px dashed var(--s4);border-radius:var(--r);padding:26px 20px;text-align:center;position:relative;cursor:pointer;transition:all 0.2s;margin:14px 0 10px}
+.imp-box:hover,.imp-box.drag{border-color:var(--acc);background:var(--acc-dim)}
+.imp-box input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.imp-icon{font-size:30px;margin-bottom:9px}
+.imp-t{font-size:14px;font-weight:600;margin-bottom:3px}
+.imp-s{font-size:12px;color:var(--t2)}
+.div{display:flex;align-items:center;gap:10px;margin:12px 0;color:var(--t3);font-size:12px}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--border)}
+textarea{width:100%;min-height:150px;background:var(--s1);border:1px solid var(--s3);border-radius:var(--rsm);color:var(--tx);font-family:var(--font);font-size:13px;padding:13px;resize:vertical;outline:none;line-height:1.6}
+textarea:focus{border-color:var(--acc)}
+textarea::placeholder{color:var(--t3)}
+.btn{width:100%;padding:14px;border-radius:var(--r);border:none;font-family:var(--font);font-size:14px;font-weight:600;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;justify-content:center;gap:7px;margin-top:9px}
+.btn-p{background:var(--acc);color:#fff}.btn-p:active{transform:scale(0.98)}
+.pv-wrap{margin-top:16px}
+.pv-lbl{font-size:11px;color:var(--t3);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.pv-list{background:var(--s1);border-radius:var(--r);border:1px solid var(--border);overflow:hidden}
+.pv-item{display:flex;align-items:center;gap:9px;padding:10px 13px;border-bottom:1px solid var(--border);font-size:13px}
+.pv-item:last-child{border-bottom:none}
+.pv-n{flex:1;font-weight:500}
+.pv-q{font-family:var(--mono);font-size:12px;color:var(--acc);font-weight:500}
+.hist-i{background:var(--s1);border:1px solid var(--border);border-radius:var(--rsm);padding:11px 13px;margin-bottom:5px;display:flex;justify-content:space-between;align-items:center}
+.hist-d{font-size:13px;font-weight:500}
+.hist-m{font-size:11px;color:var(--t3);margin-top:2px;font-family:var(--mono)}
+.hist-b{font-size:11px;padding:3px 9px;border-radius:18px;background:var(--grn-d);color:var(--grn);font-weight:600;font-family:var(--mono)}
+
+/* INSIGHTS */
+.ins-top{padding:18px 0 6px}
+.stat-g{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 18px}
+.sc{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:14px}
+.sc-n{font-size:27px;font-weight:600;letter-spacing:-1px;line-height:1}
+.sc-u{font-size:12px;color:var(--acc);font-weight:500;margin-left:2px}
+.sc-l{font-size:11px;color:var(--t3);margin-top:5px;font-weight:500}
+.ic{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:15px;margin-bottom:9px}
+.ic-t{font-size:11px;font-weight:600;color:var(--t3);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:11px}
+.ir2{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
+.ir2:last-child{border-bottom:none;padding-bottom:0}
+.iv{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--acc)}
+.br{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+.bn{font-size:12px;color:var(--t2);width:95px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bt{flex:1;height:4px;background:var(--s3);border-radius:2px;overflow:hidden}
+.bf{height:100%;border-radius:2px;background:var(--acc)}
+.bv{font-size:11px;color:var(--t3);font-family:var(--mono);width:36px;text-align:right;flex-shrink:0}
+
+/* BNAV */
+.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(10,10,15,0.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);padding-bottom:env(safe-area-inset-bottom,0)}
+.nb{display:flex;flex-direction:column;align-items:center;padding:10px 0 8px;cursor:pointer;border:none;background:none;color:var(--t3);font-family:var(--font);font-size:10px;font-weight:500;gap:4px;transition:color 0.15s;letter-spacing:0.3px}
+.nb.active{color:var(--acc)}
+.ni{font-size:20px;line-height:1}
+
+/* OVERLAY */
+.ov{position:fixed;inset:0;background:rgba(10,10,15,0.9);backdrop-filter:blur(12px);z-index:999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:13px}
+.ov.show{display:flex}
+.spin{width:38px;height:38px;border:2px solid var(--s3);border-top-color:var(--acc);border-radius:50%;animation:spin 0.6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ov-t{font-size:14px;color:var(--t2)}
+
+/* TOAST */
+.toast{position:fixed;bottom:94px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--s3);color:var(--tx);padding:10px 18px;border-radius:22px;font-size:13px;font-weight:500;opacity:0;transition:all 0.22s;z-index:200;border:1px solid var(--border);white-space:nowrap;max-width:calc(100% - 40px);text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* INSTALL */
+.inst-b{background:var(--s1);border:1px solid var(--border);border-radius:var(--rsm);padding:11px 13px;margin-bottom:11px;display:flex;align-items:center;gap:9px}
+.inst-t{flex:1;font-size:12px;color:var(--t2);line-height:1.4}
+.inst-t strong{display:block;color:var(--tx);font-size:13px;margin-bottom:1px}
+.inst-btn{background:var(--acc);color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font)}
+
+@keyframes fu{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+code{font-family:var(--mono);font-size:12px;background:var(--s3);padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-i">
+    <div class="logo">Pantry<b>IQ</b></div>
+    <div class="hdr-right">
+      <div class="hdr-date" id="last-sync"></div>
+      <button class="add-btn" onclick="go('add')">+ Add Bill</button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <div class="page active" id="page-home"><div id="home-c"></div></div>
+  <div class="page" id="page-add">
+    <div class="add-top">
+      <div class="add-top-t">Add Invoice</div>
+      <div class="add-top-s">Import a JSON file from Claude or paste a Swiggy delivery email body.</div>
+    </div>
+    <div id="inst-slot"></div>
+    <div class="imp-box" id="imp-box">
+      <input type="file" accept=".json" id="jf" onchange="onJSON(this)">
+      <div class="imp-icon">📦</div>
+      <div class="imp-t">Import pantryiq-data.json</div>
+      <div class="imp-s">Tap to select · drag & drop works too</div>
+    </div>
+    <div class="div">or paste email text</div>
+    <textarea id="inv-txt" placeholder="Paste Swiggy delivery email here&#10;&#10;Order Items&#10;1 x Lemon (Nimbe Hannu) ₹34.00&#10;2 x Onion (Eerulli) ₹50.00&#10;1 x Licious Chicken Breast Boneless ₹260.00&#10;..."></textarea>
+    <button class="btn btn-p" onclick="parse()">✨ Extract Items</button>
+    <div id="preview"></div>
+    <div id="hist" style="margin-top:22px"></div>
+
+    <div style="margin-top:32px;padding-top:20px;border-top:1px solid var(--border)">
+      <div style="font-size:11px;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px">Danger Zone</div>
+      <button class="btn" onclick="resetAll()" style="background:var(--red-d);color:var(--red);border:1px solid var(--red-b);margin-top:0">🗑️ Reset All Data</button>
+      <div style="font-size:11px;color:var(--t3);margin-top:8px;text-align:center;line-height:1.5">Clears everything from this device. Cannot be undone.</div>
+    </div>
+  </div>
+  <div class="page" id="page-insights"><div id="ins-c"></div></div>
+</main>
+
+<nav class="bnav">
+  <button class="nb active" id="nb-home" onclick="go('home')"><span class="ni">🏠</span>Dashboard</button>
+  <button class="nb" id="nb-add" onclick="go('add')"><span class="ni">➕</span>Add Bill</button>
+  <button class="nb" id="nb-insights" onclick="go('insights')"><span class="ni">📈</span>Insights</button>
+</nav>
+
+<div class="ov" id="ov"><div class="spin"></div><div class="ov-t" id="ov-t">Processing…</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ── STORAGE ──
+const K='piq_v4';
+function load(){try{return JSON.parse(localStorage.getItem(K))||boot()}catch{return boot()}}
+function save(d){localStorage.setItem(K,JSON.stringify(d))}
+
+// ── BOOT: starts empty, data lives only on device ──
+function boot(){
+const d={invoices:[],items:{}};
+save(d);return d;
+}
+
+// ── EMOJI ──
+const EM={lemon:'🍋',chicken:'🍗',egg:'🥚',onion:'🧅',coriander:'🌿',bread:'🍞',milk:'🥛',curd:'🥛',yogurt:'🥛',spinach:'🥬',tomato:'🍅',chilli:'🌶',garlic:'🧄',cucumber:'🥒',banana:'🍌',potato:'🥔',ginger:'🫚',batter:'🫙',idly:'🫙',olive:'🫙',oil:'🫙',surf:'🧺',detergent:'🧺',toothpaste:'🪥',toothbrush:'🪥',gourd:'🥬',atta:'🌾',flour:'🌾',epigamia:'🥛',noodles:'🍜',hakka:'🍜',butter:'🧈',chutney:'🫙',dal:'🫘',toor:'🫘',poha:'🌾',bhindi:'🥬',ladyfinger:'🥬',haldiram:'🍿',bhujia:'🍿',cashew:'🥜',paneer:'🧀',tofu:'🧀',radish:'🥕',pomegranate:'🍎',avocado:'🥑',corn:'🌽',frozen:'❄️',peas:'🫛',powder:'🫙',masala:'🫙',besan:'🫙',snack:'🍿',default:'🛒'};
+function em(n){const l=n.toLowerCase();for(const[k,v]of Object.entries(EM)){if(l.includes(k))return v}return EM.default}
+
+// ── FORECAST ──
+function fc(items){
+  const today=new Date();
+  return Object.entries(items).map(([k,d])=>{
+    const ps=[...d.purchases].sort((a,b)=>new Date(a.date)-new Date(b.date));
+    if(!ps.length)return null;
+    const total=ps.reduce((s,p)=>s+p.qty,0);
+    const first=new Date(ps[0].date),last=new Date(ps[ps.length-1].date);
+    const span=Math.max(14,(last-first)/86400000);
+    const daily=total/span;
+    const since=(today-last)/86400000;
+    const rem=Math.max(0,ps[ps.length-1].qty-daily*since);
+    const days=daily>0?Math.round(rem/daily):999;
+    const oos=new Date(today.getTime()+days*86400000);
+    const st=days<=3?'red':days<=10?'amb':'grn';
+    let freq=30;
+    if(ps.length>1){const g=[];for(let i=1;i<ps.length;i++)g.push((new Date(ps[i].date)-new Date(ps[i-1].date))/86400000);freq=Math.round(g.reduce((s,x)=>s+x,0)/g.length)}
+    return{k,name:d.name,e:em(d.name),days,oos:oos.toLocaleDateString('en-IN',{day:'numeric',month:'short'}),st,rem:Math.round(rem*10)/10,unit:d.unit||'',daily:Math.round(daily*100)/100,freq,n:ps.length,lb:last.toLocaleDateString('en-IN',{day:'numeric',month:'short'})};
+  }).filter(Boolean).sort((a,b)=>a.days-b.days);
+}
+
+// ── RENDER HOME ──
+function renderHome(){
+  const d=load(),c=document.getElementById('home-c');
+  if(!Object.keys(d.items).length){c.innerHTML=`<div class="empty"><div class="empty-icon">🛒</div><div class="empty-t">Nothing here yet</div><div class="empty-s">Tap <strong>+ Add Bill</strong> to import your Instamart history and start forecasting.</div></div>`;return}
+  const it=fc(d.items),red=it.filter(i=>i.st==='red'),amb=it.filter(i=>i.st==='amb'),grn=it.filter(i=>i.st==='grn');
+  const sorted=[...d.invoices].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  if(sorted.length)document.getElementById('last-sync').textContent='Updated '+fd(sorted[0].date);
+  let hl='',sub='';
+  if(!red.length&&!amb.length){hl=`<span class="c-grn">All stocked</span> 🎉`;sub=`${grn.length} items in good shape. No urgent orders.`}
+  else if(red.length){hl=`<span class="c-red">${red.length} item${red.length>1?'s':''}</span> running out`;sub=`${amb.length?amb.length+' more running low · ':''} Order today.`}
+  else{hl=`<span class="c-amb">${amb.length} item${amb.length>1?'s':''}</span> running low`;sub=`Plan an order soon. Nothing critical yet.`}
+  let html=`<div class="hero">
+    <div class="hero-eyebrow">${new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'})}</div>
+    <div class="hero-h">${hl}</div>
+    <div class="hero-sub">${sub}</div>
+    ${(red.length||amb.length)?`<button class="order-btn" onclick="copyList()">📋 Copy Shopping List (${red.length+amb.length} items)</button>`:''}
+  </div>`;
+  const sec=(label,arr)=>{
+    if(!arr.length)return'';
+    return`<div class="sh"><div class="sh-title">${label}</div><div class="sh-n">${arr.length}</div></div><div class="items">${arr.map((i,x)=>card(i,x*0.035)).join('')}</div>`;
+  };
+  html+=sec('🔴 Order Now',red)+sec('🟡 Running Low',amb)+sec('✅ Stocked',grn);
+  c.innerHTML=html;
+}
+
+function card(i,delay){
+  const pct=Math.min(100,Math.round((i.days/30)*100));
+  const col=i.st==='red'?'var(--red)':i.st==='amb'?'var(--amb)':'var(--grn)';
+  const lbl=i.days>=999?'30d+':i.days===0?'OOS':i.days===1?'1 day':`${i.days}d`;
+  return`<div class="item ${i.st}" style="animation-delay:${delay}s">
+  <div class="ie">${i.e}</div>
+  <div class="ib">
+    <div class="in">${i.name}</div>
+    <div class="im">~${i.rem}${i.unit} left · ${i.lb}</div>
+    <div class="bar"><div class="bar-f" style="width:${pct}%;background:${col}"></div></div>
+  </div>
+  <div class="ir">
+    <div class="dp ${i.st}">${lbl}</div>
+    <div class="od">~${i.days>=999?'30d+':i.oos}</div>
+  </div>
+</div>`;
+}
+
+function copyList(){
+  const d=load(),it=fc(d.items).filter(i=>i.st==='red'||i.st==='amb');
+  const txt=`🛒 PantryIQ · ${new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short'})}\n\n`+it.map(i=>`${i.e} ${i.name}  ${i.st==='red'?'🔴':'🟡'}`).join('\n');
+  navigator.clipboard.writeText(txt).then(()=>toast('✅ List copied to clipboard!')).catch(()=>toast('Copied!'));
+}
+
+// ── RENDER INSIGHTS ──
+function renderInsights(){
+  const d=load(),c=document.getElementById('ins-c'),it=fc(d.items);
+  if(!it.length){c.innerHTML=`<div class="empty"><div class="empty-icon">📈</div><div class="empty-t">No insights yet</div><div class="empty-s">Add invoices to see your patterns.</div></div>`;return}
+  const inv=d.invoices.length,prods=Object.keys(d.items).length;
+  const freqs=it.filter(i=>i.n>1).map(i=>i.freq);
+  const avgf=freqs.length?Math.round(freqs.reduce((s,f)=>s+f,0)/freqs.length):0;
+  const earliest=d.invoices.reduce((e,i)=>new Date(i.date)<new Date(e.date)?i:e,d.invoices[0]);
+  const mo=Math.round((new Date()-new Date(earliest.date))/(30*86400000));
+  const top=it.slice().sort((a,b)=>b.daily-a.daily).slice(0,5);
+  const soon=it.filter(i=>i.days<=14);
+  let html=`<div class="ins-top"><div style="font-size:22px;font-weight:600;letter-spacing:-0.3px">Your Pantry</div><div style="font-size:13px;color:var(--t2);margin-top:3px">${mo} months tracked · ${inv} orders</div></div>
+  <div class="stat-g">
+    <div class="sc"><div class="sc-n">${prods}</div><div class="sc-l">Products tracked</div></div>
+    <div class="sc"><div class="sc-n">${inv}</div><div class="sc-l">Orders imported</div></div>
+    <div class="sc"><div class="sc-n">${avgf}<span class="sc-u">d</span></div><div class="sc-l">Avg reorder cycle</div></div>
+    <div class="sc"><div class="sc-n">${mo}<span class="sc-u">mo</span></div><div class="sc-l">History</div></div>
+  </div>
+  <div class="ic"><div class="ic-t">⚡ Fastest Moving</div>`;
+  top.forEach(i=>{const pct=Math.min(100,Math.round((i.daily/top[0].daily)*100));html+=`<div class="br"><div class="bn">${i.e} ${i.name.split(' ').slice(0,2).join(' ')}</div><div class="bt"><div class="bf" style="width:${pct}%"></div></div><div class="bv">${i.daily}d</div></div>`});
+  html+=`</div><div class="ic"><div class="ic-t">📅 Next 14 Days</div>`;
+  if(!soon.length)html+=`<div style="font-size:13px;color:var(--t3);padding:6px 0">All stocked for 2 weeks 🎉</div>`;
+  else soon.forEach(i=>{const col=i.st==='red'?'var(--red)':i.st==='amb'?'var(--amb)':'var(--grn)';html+=`<div class="ir2"><span>${i.e} ${i.name}</span><span class="iv" style="color:${col}">${i.oos}</span></div>`});
+  html+=`</div><div class="ic"><div class="ic-t">🔁 Reorder Patterns</div>`;
+  it.filter(i=>i.n>2).slice(0,8).forEach(i=>{html+=`<div class="ir2"><span>${i.e} ${i.name}</span><span class="iv">~every ${i.freq}d</span></div>`});
+  html+=`</div>`;
+  c.innerHTML=html;
+}
+
+// ── RENDER HISTORY ──
+function renderHist(){
+  const d=load(),c=document.getElementById('hist');
+  if(!d.invoices.length){c.innerHTML='';return}
+  const s=[...d.invoices].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  let h=`<div style="font-size:11px;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">Import History (${s.length})</div>`;
+  s.slice(0,12).forEach(i=>{h+=`<div class="hist-i"><div><div class="hist-d">${fd(i.date)}</div><div class="hist-m">${i.count} items</div></div><div class="hist-b">${i.count}</div></div>`});
+  c.innerHTML=h;
+}
+
+// ── PARSER ──
+function parse(){
+  const t=document.getElementById('inv-txt').value.trim();
+  if(!t){toast('Paste invoice text or JSON first');return}
+  if(t.startsWith('{')){try{const j=JSON.parse(t);if(j.items&&j.invoices){merge(j);return}}catch{}}
+  const r=swParse(t);
+  if(r.items.length){showPreview(r)}
+  else{document.getElementById('preview').innerHTML=`<div class="ic" style="margin-top:14px;text-align:center"><div style="font-size:26px;margin-bottom:8px">💡</div><div style="font-size:14px;font-weight:600;margin-bottom:5px">Nothing recognised</div><div style="font-size:12px;color:var(--t2);line-height:1.7">Copy the full text of a Swiggy delivery email and paste it here, or import a <code>pantryiq-data.json</code> using the button above.</div></div>`}
+}
+
+function swParse(txt){
+  let od=new Date().toISOString().split('T')[0];
+  const dm=txt.match(/(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s+\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{4}/i);
+  if(dm){try{od=new Date(dm[0]).toISOString().split('T')[0]}catch{}}
+  const items=[],seen={};
+  for(const line of txt.split(/\n|\r/)){
+    const m=line.trim().match(/^(\d+)\s+x\s+(.+?)\s+₹[\d.]+$/);
+    if(!m)continue;
+    const qty=parseInt(m[1]);let name=m[2].trim();
+    if(/flyer|sample|handling|delivery|grand total|item bill/i.test(name))continue;
+    name=name.replace(/\s*[-–]\s*\d+\s*(pcs|pack|gm|g|kg|ml|L|ltr)\b/gi,'').trim();
+    const k=name.toLowerCase();
+    if(seen[k])seen[k].qty+=qty;else{seen[k]={name,qty,unit:'pcs'};items.push(seen[k])}
+  }
+  return{order_date:od,items};
+}
+
+let _p=null;
+function showPreview(parsed){
+  _p=parsed;
+  let h=`<div class="pv-wrap"><div class="pv-lbl">Found ${parsed.items.length} items · ${fd(parsed.order_date)}</div><div class="pv-list">`;
+  parsed.items.forEach((item,i)=>{h+=`<div class="pv-item"><span style="font-size:18px">${em(item.name)}</span><span class="pv-n">${item.name}</span><span class="pv-q">×${item.qty}</span></div>`});
+  h+=`</div><button class="btn btn-p" style="margin-top:10px" onclick="saveInv()">💾 Save to Pantry</button></div>`;
+  document.getElementById('preview').innerHTML=h;
+}
+
+function saveInv(){
+  if(!_p)return;
+  const d=load();
+  if(d.invoices.find(i=>i.date===_p.order_date)){toast('Invoice for this date already saved');return}
+  _p.items.forEach(item=>{
+    const k=item.name.toLowerCase().replace(/\s+/g,'-');
+    if(!d.items[k])d.items[k]={name:item.name,unit:item.unit,purchases:[]};
+    d.items[k].purchases.push({date:_p.order_date,qty:item.qty});
+  });
+  d.invoices.push({date:_p.order_date,count:_p.items.length});
+  save(d);
+  document.getElementById('preview').innerHTML='';
+  document.getElementById('inv-txt').value='';
+  _p=null;
+  renderHome();renderHist();renderInsights();
+  toast('✅ Saved!');go('home');
+}
+
+function onJSON(input){
+  const f=input.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{try{merge(JSON.parse(e.target.result))}catch{toast('Invalid JSON file')}};
+  r.readAsText(f);
+}
+
+function merge(imp){
+  if(!imp.items||!imp.invoices){toast('Invalid format');return}
+  const d=load();
+  const ex=new Set(d.invoices.map(i=>i.date));
+  imp.invoices.forEach(i=>{if(!ex.has(i.date))d.invoices.push(i)});
+  Object.entries(imp.items).forEach(([k,v])=>{
+    if(!d.items[k])d.items[k]=v;
+    else{const ed=new Set(d.items[k].purchases.map(p=>p.date));v.purchases.forEach(p=>{if(!ed.has(p.date))d.items[k].purchases.push(p)})}
+  });
+  save(d);renderHome();renderHist();renderInsights();
+  toast(`✅ Imported ${Object.keys(imp.items).length} products!`);go('home');
+}
+
+// ── UTILS ──
+function fd(d){if(!d)return'—';return new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
+
+// ── NAV ──
+function go(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.getElementById('nb-'+name).classList.add('active');
+  if(name==='home')renderHome();
+  if(name==='insights')renderInsights();
+  if(name==='add')renderHist();
+  window.scrollTo(0,0);
+}
+
+// PWA
+let _dip;
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();_dip=e;
+  document.getElementById('inst-slot').innerHTML=`<div class="inst-b"><div style="font-size:20px">📱</div><div class="inst-t"><strong>Install PantryIQ</strong>Add to home screen for instant access</div><button class="inst-btn" onclick="installPWA()">Install</button></div>`;
+});
+function installPWA(){if(_dip){_dip.prompt();_dip.userChoice.then(()=>{_dip=null;document.getElementById('inst-slot').innerHTML=''})}}
+
+// ── RESET ──
+function resetAll(){
+  if(!confirm('Reset ALL data? This cannot be undone.'))return;
+  localStorage.removeItem(K);
+  document.getElementById('preview').innerHTML='';
+  document.getElementById('inv-txt').value='';
+  document.getElementById('hist').innerHTML='';
+  renderHome();renderInsights();
+  toast('✅ All data cleared');
+  go('home');
+}
+
+// ── INIT ──
+renderHome();
+</script>
+</body>
+</html>
