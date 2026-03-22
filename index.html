@@ -513,7 +513,9 @@ function renderInsights(){
 // RENDER HISTORY
 // ─────────────────────────────────────────────
 function renderHist(){
-  const d=load(),c=document.getElementById('hist');
+  const c=document.getElementById('hist');
+  if(!c)return; // page not visible yet
+  const d=load();
   const info=document.getElementById('current-household-info');
   if(info)info.textContent=`Active household: ${getActive()||'—'}`;
   if(!d.invoices.length){c.innerHTML='';return}
@@ -575,7 +577,9 @@ function saveInv(){
   document.getElementById('preview').innerHTML='';
   document.getElementById('inv-txt').value='';
   _p=null;
-  renderHome();renderHist();renderInsights();
+  renderHome();
+  if(document.getElementById('hist'))renderHist();
+  renderInsights();
   toast('✅ Saved!');go('home');
 }
 
@@ -622,9 +626,7 @@ function merge(imp){
     else{const ed=new Set(d.items[k].purchases.map(p=>p.date));v.purchases.forEach(p=>{if(!ed.has(p.date))d.items[k].purchases.push(p)})}
   });
   save(d);markDirty();
-  // Safe renders — check element exists before touching it
   renderHome();
-  const hel=document.getElementById('hist');if(hel)renderHist();
   renderInsights();
   toast('✅ '+Object.keys(imp.items).length+' products · '+imp.invoices.length+' orders loaded!');
   go('home');
@@ -670,7 +672,7 @@ function resetAll(){
   localStorage.removeItem(dataKey(code));markDirty();
   document.getElementById('preview').innerHTML='';
   document.getElementById('inv-txt').value='';
-  document.getElementById('hist').innerHTML='';
+  const hc=document.getElementById('hist');if(hc)hc.innerHTML='';
   renderHome();renderInsights();
   toast(`✅ ${code} data cleared`);
   go('home');
