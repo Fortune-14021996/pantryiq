@@ -76,25 +76,66 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);max-width:430p
 .order-btn:active{transform:scale(0.98)}
 
 /* SECTION HDR */
-.sh{display:flex;align-items:center;justify-content:space-between;margin:18px 0 8px}
-.sh-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.9px;color:var(--t3)}
-.sh-n{font-size:11px;color:var(--t3);font-family:var(--mono)}
+.sh{display:flex;align-items:center;justify-content:space-between;margin:20px 0 8px}
+.sh-wrap{display:flex;align-items:center;gap:8px}
+.sh-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sh-title{font-size:12px;font-weight:600;letter-spacing:0.4px;color:var(--tx)}
+.sh-sub{font-size:11px;color:var(--t3);margin-top:1px}
+.sh-n{font-size:12px;color:var(--t3);font-family:var(--mono);background:var(--s2);padding:3px 8px;border-radius:10px}
 
 /* ITEM */
-.items{display:flex;flex-direction:column;gap:5px;margin-bottom:2px}
-.item{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:11px 13px;display:flex;align-items:center;gap:11px;position:relative;overflow:hidden;animation:fu 0.2s ease both}
-.item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2.5px;border-radius:2px 0 0 2px}
-.item.red::before{background:var(--red)}.item.amb::before{background:var(--amb)}.item.grn::before{background:var(--grn)}
-.ie{font-size:21px;width:33px;text-align:center;flex-shrink:0;line-height:1}
+.items{display:flex;flex-direction:column;gap:6px;margin-bottom:4px}
+
+/* Base card */
+.item{
+  background:var(--s1);border:1px solid var(--border);
+  border-radius:14px;padding:13px 14px;
+  display:flex;align-items:center;gap:12px;
+  position:relative;overflow:hidden;
+  animation:fu 0.22s ease both;
+  transition:transform 0.12s;
+}
+.item:active{transform:scale(0.985)}
+
+/* Accent left bar */
+.item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px}
+.item.red-hi::before{background:var(--red)}
+.item.red-lo::before{background:#ff8c42}
+.item.amb::before{background:var(--amb)}
+.item.grn::before{background:var(--grn)}
+
+/* Subtle bg tint for critical items */
+.item.red-hi{background:rgba(255,82,82,0.05)}
+.item.red-lo{background:rgba(255,140,66,0.04)}
+
+/* Emoji circle */
+.ie{
+  width:40px;height:40px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+}
+.item.red-hi .ie{background:rgba(255,82,82,0.12)}
+.item.red-lo .ie{background:rgba(255,140,66,0.1)}
+.item.amb .ie{background:rgba(255,181,38,0.1)}
+.item.grn .ie{background:rgba(52,211,153,0.08)}
+
 .ib{flex:1;min-width:0}
-.in{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.im{font-size:11px;color:var(--t3);margin-top:2px;font-family:var(--mono)}
-.ir{text-align:right;flex-shrink:0}
-.dp{font-size:11px;font-weight:600;padding:4px 9px;border-radius:18px;display:inline-block;font-family:var(--mono)}
-.dp.red{background:var(--red-d);color:var(--red)}.dp.amb{background:var(--amb-d);color:var(--amb)}.dp.grn{background:var(--grn-d);color:var(--grn)}
-.od{font-size:10px;color:var(--t3);margin-top:3px;font-family:var(--mono)}
-.bar{height:2px;background:var(--s3);border-radius:1px;margin-top:6px;overflow:hidden}
-.bar-f{height:100%;border-radius:1px}
+.in{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.2px}
+.im{font-size:11px;color:var(--t3);margin-top:3px;display:flex;align-items:center;gap:6px}
+.freq-tag{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600;letter-spacing:0.2px}
+.freq-tag.hi{background:rgba(255,82,82,0.15);color:var(--red)}
+.freq-tag.lo{background:rgba(255,140,66,0.15);color:#ff8c42}
+
+.ir{text-align:right;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.dp{font-size:12px;font-weight:700;padding:5px 10px;border-radius:20px;display:inline-block;font-family:var(--mono);letter-spacing:0.2px}
+.dp.red-hi{background:var(--red-d);color:var(--red)}
+.dp.red-lo{background:rgba(255,140,66,0.12);color:#ff8c42}
+.dp.amb{background:var(--amb-d);color:var(--amb)}
+.dp.grn{background:var(--grn-d);color:var(--grn)}
+.od{font-size:10px;color:var(--t3);font-family:var(--mono)}
+
+/* No bar strip — cleaner look */
+
 
 /* EMPTY */
 .empty{text-align:center;padding:56px 20px}
@@ -432,7 +473,12 @@ function renderHome(){
   const syncEl=document.getElementById('last-sync');if(syncEl&&sorted.length)syncEl.textContent='Updated '+fd(sorted[0].date);
   let hl='',sub='';
   if(!red.length&&!amb.length){hl=`<span class="c-grn">All stocked</span> 🎉`;sub=`${grn.length} items in good shape.`}
-  else if(red.length){hl=`<span class="c-red">${red.length} item${red.length>1?'s':''}</span> running out`;sub=`${amb.length?amb.length+' more running low · ':''}Order today.`}
+  else if(red.length){
+    const rhi=red.filter(i=>i.n>=6).length;
+    const rlo=red.filter(i=>i.n<6).length;
+    hl=`<span class="c-red">${red.length} item${red.length>1?'s':''}</span> out of stock`;
+    sub=`${rhi?rhi+' staple'+( rhi>1?'s':'')+' · ':''}${rlo?rlo+' occasional'+( rlo>1?'s':'')+' · ':''}${amb.length?amb.length+' running low':''}`.replace(/ · $/,'');
+  }
   else{hl=`<span class="c-amb">${amb.length} item${amb.length>1?'s':''}</span> running low`;sub=`Plan an order soon.`}
   let html=`<div class="hero">
     <div class="hero-eyebrow">${new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'})}</div>
@@ -440,28 +486,49 @@ function renderHome(){
     <div class="hero-sub">${sub}</div>
     ${(red.length||amb.length)?`<button class="order-btn" onclick="copyList()">📋 Copy Shopping List (${red.length+amb.length} items)</button>`:''}
   </div>`;
-  const sec=(label,arr)=>{
+  // Split red into frequent staples (n>=6) and occasional
+  const redHi=red.filter(i=>i.n>=6);
+  const redLo=red.filter(i=>i.n<6);
+
+  function sec(dotColor,title,sub,arr){
     if(!arr.length)return'';
-    return`<div class="sh"><div class="sh-title">${label}</div><div class="sh-n">${arr.length}</div></div><div class="items">${arr.map((i,x)=>card(i,x*0.035)).join('')}</div>`;
-  };
-  html+=sec('🔴 Order Now',red)+sec('🟡 Running Low',amb)+sec('✅ Stocked',grn);
+    return`<div class="sh">
+      <div class="sh-wrap">
+        <div class="sh-dot" style="background:${dotColor}"></div>
+        <div><div class="sh-title">${title}</div>${sub?`<div class="sh-sub">${sub}</div>`:''}</div>
+      </div>
+      <div class="sh-n">${arr.length}</div>
+    </div>
+    <div class="items">${arr.map((i,x)=>card(i,x*0.03)).join('')}</div>`;
+  }
+
+  html+=sec('var(--red)','Order immediately','Staples you buy often — running out now',redHi);
+  html+=sec('#ff8c42','Order soon','Items you buy occasionally — also OOS',redLo);
+  html+=sec('var(--amb)','Running low','Still have some, but plan ahead',amb);
+  html+=sec('var(--grn)','Well stocked','No action needed',grn);
   c.innerHTML=html;
 }
 
 function card(i,delay){
-  const pct=Math.min(100,Math.round((i.days/30)*100));
-  const col=i.st==='red'?'var(--red)':i.st==='amb'?'var(--amb)':'var(--grn)';
-  const lbl=i.days>=999?'30d+':i.days===0?'OOS':i.days===1?'1 day':`${i.days}d`;
-  return`<div class="item ${i.st}" style="animation-delay:${delay}s">
+  const lbl=i.days>=999?'30d+':i.days===0?'OOS now':i.days===1?'1 day left':`${i.days}d left`;
+  // Determine visual class
+  let cls=i.st;
+  if(i.st==='red') cls=i.n>=6?'red-hi':'red-lo';
+  const freqTag=i.st==='red'
+    ? (i.n>=6
+        ? `<span class="freq-tag hi">staple · ${i.n}x bought</span>`
+        : `<span class="freq-tag lo">occasional · ${i.n}x bought</span>`)
+    : '';
+  const lastInfo=`<span>last: ${i.lb}</span>`;
+  return`<div class="item ${cls}" style="animation-delay:${delay}s">
   <div class="ie">${i.e}</div>
   <div class="ib">
     <div class="in">${i.name}</div>
-    <div class="im">~${i.rem}${i.unit} left · ${i.lb}</div>
-    <div class="bar"><div class="bar-f" style="width:${pct}%;background:${col}"></div></div>
+    <div class="im">${freqTag}${lastInfo}</div>
   </div>
   <div class="ir">
-    <div class="dp ${i.st}">${lbl}</div>
-    <div class="od">~${i.days>=999?'30d+':i.oos}</div>
+    <div class="dp ${cls}">${lbl}</div>
+    <div class="od">${i.days<999?'~'+i.oos:''}</div>
   </div>
 </div>`;
 }
