@@ -351,7 +351,7 @@ function enterHousehold(code){
   if(!list.includes(code))list.push(code);
   saveHouseholds(list);
   setActive(code);
-  document.getElementById('setup-screen').classList.add('hidden');
+  const ss=document.getElementById('setup-screen');if(ss)ss.classList.add('hidden');
   updateHouseholdUI();
   renderHome();
   renderInsights();
@@ -361,7 +361,7 @@ function enterHousehold(code){
 
 function switchHousehold(code){
   setActive(code);
-  document.getElementById('setup-screen').classList.add('hidden');
+  const ss2=document.getElementById('setup-screen');if(ss2)ss2.classList.add('hidden');
   updateHouseholdUI();
   renderHome();
   renderInsights();
@@ -384,7 +384,7 @@ function deleteHousehold(e, code){
 
 function updateHouseholdUI(){
   const code=getActive()||'—';
-  document.getElementById('hdr-household').textContent='🏠 '+code;
+  const hdrH=document.getElementById('hdr-household');if(hdrH)hdrH.textContent='🏠 '+code;
   const info=document.getElementById('current-household-info');
   if(info)info.textContent=`Active household: ${code}`;
 }
@@ -429,7 +429,7 @@ function renderHome(){
   }
   const it=fc(d.items),red=it.filter(i=>i.st==='red'),amb=it.filter(i=>i.st==='amb'),grn=it.filter(i=>i.st==='grn');
   const sorted=[...d.invoices].sort((a,b)=>new Date(b.date)-new Date(a.date));
-  if(sorted.length)document.getElementById('last-sync').textContent='Updated '+fd(sorted[0].date);
+  const syncEl=document.getElementById('last-sync');if(syncEl&&sorted.length)syncEl.textContent='Updated '+fd(sorted[0].date);
   let hl='',sub='';
   if(!red.length&&!amb.length){hl=`<span class="c-grn">All stocked</span> 🎉`;sub=`${grn.length} items in good shape.`}
   else if(red.length){hl=`<span class="c-red">${red.length} item${red.length>1?'s':''}</span> running out`;sub=`${amb.length?amb.length+' more running low · ':''}Order today.`}
@@ -529,7 +529,7 @@ function renderHist(){
 // INVOICE PARSER
 // ─────────────────────────────────────────────
 function parse(){
-  const t=document.getElementById('inv-txt').value.trim();
+  const itEl=document.getElementById('inv-txt');if(!itEl)return;const t=itEl.value.trim();
   if(!t){toast('Paste invoice text or JSON first');return}
   if(t.startsWith('{')){try{const j=JSON.parse(t);if(j.items&&j.invoices){merge(j);return}}catch{}}
   const r=swParse(t);
@@ -560,7 +560,7 @@ function showPreview(parsed){
   let h=`<div class="pv-wrap"><div class="pv-lbl">Found ${parsed.items.length} items · ${fd(parsed.order_date)}</div><div class="pv-list">`;
   parsed.items.forEach(item=>{h+=`<div class="pv-item"><span style="font-size:18px">${em(item.name)}</span><span class="pv-n">${item.name}</span><span class="pv-q">×${item.qty}</span></div>`});
   h+=`</div><button class="btn btn-p" style="margin-top:10px" onclick="saveInv()">💾 Save to Pantry</button></div>`;
-  document.getElementById('preview').innerHTML=h;
+  const pvEl=document.getElementById('preview');if(pvEl)pvEl.innerHTML=h;
 }
 
 function saveInv(){
@@ -574,8 +574,8 @@ function saveInv(){
   });
   d.invoices.push({date:_p.order_date,count:_p.items.length});
   save(d);markDirty();
-  document.getElementById('preview').innerHTML='';
-  document.getElementById('inv-txt').value='';
+  const pv=document.getElementById('preview');if(pv)pv.innerHTML='';
+  const it2=document.getElementById('inv-txt');if(it2)it2.value='';
   _p=null;
   renderHome();
   if(document.getElementById('hist'))renderHist();
@@ -686,7 +686,7 @@ window.addEventListener('beforeinstallprompt',e=>{
   e.preventDefault();_dip=e;
   document.getElementById('inst-slot').innerHTML=`<div class="inst-b"><div style="font-size:20px">📱</div><div class="inst-t"><strong>Install PantryIQ</strong>Add to home screen for instant access</div><button class="inst-btn" onclick="installPWA()">Install</button></div>`;
 });
-function installPWA(){if(_dip){_dip.prompt();_dip.userChoice.then(()=>{_dip=null;document.getElementById('inst-slot').innerHTML=''})}}
+function installPWA(){if(_dip){_dip.prompt();_dip.userChoice.then(()=>{_dip=null;const isl=document.getElementById('inst-slot');if(isl)isl.innerHTML=''})}}
 
 // ─────────────────────────────────────────────
 // INIT
