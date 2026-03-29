@@ -131,13 +131,26 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);max-width:430p
 <div class="setup" id="setup">
   <div class="setup-logo">🏠</div>
   <div class="setup-title">Welcome to PantryIQ</div>
-  <div class="setup-sub">Enter your household name to access your pantry. Each household has its own private data.</div>
-  <div class="setup-label">Your Household Name</div>
+  <div class="setup-sub">Enter your Instamart email and a name for your household.</div>
+
+  <div class="setup-label">Email Address</div>
+  <input class="setup-input" id="setup-email" type="email" maxlength="80"
+    placeholder="you@gmail.com"
+    style="text-transform:none;letter-spacing:0;font-weight:400;font-size:14px"
+    oninput="onSetupInput()"
+    onkeydown="if(event.key==='Enter')setupGo()">
+
+  <div class="setup-label" style="margin-top:14px">Household Name</div>
   <input class="setup-input" id="setup-inp" type="text" maxlength="20"
     placeholder="e.g. HOME1"
-    oninput="onSetupInput(this)"
+    oninput="onSetupInput()"
     onkeydown="if(event.key==='Enter')setupGo()">
-  <button class="setup-btn" id="setup-btn" onclick="setupGo()" disabled>Enter My Pantry →</button>
+
+  <div class="setup-hint">This becomes your unique key — use the same name every time.</div>
+  <button class="setup-btn" id="setup-btn" onclick="setupGo()" disabled>Fetch My Pantry →</button>
+
+  <div id="setup-status" style="font-size:13px;color:var(--t2);margin-top:16px;min-height:20px;text-align:center"></div>
+
   <div class="chips-wrap" id="chips-wrap" style="display:none">
     <div class="chips-label">Or switch to existing</div>
     <div id="chips"></div>
@@ -375,12 +388,61 @@ function go(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
 }
-function setupGo(){
-  setActive(document.getElementById('setup-inp').value.toUpperCase());
-  document.getElementById('setup').classList.add('hidden');
-  loadAndRender();
+const N8N_WEBHOOK = 'https://alpha14mehra.app.n8n.cloud/webhook/2efa5ac5-b83c-423b-a445-e9ec42355673';
+
+function onSetupInput() {
+  const email = document.getElementById('setup-email').value.trim();
+  const hh = document.getElementById('setup-inp').value.trim();
+  const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  document.getElementById('setup-btn').disabled = !(validEmail && hh.length >= 2);
 }
-function onSetupInput(i){document.getElementById('setup-btn').disabled = i.value.length < 2;}
+
+async function setupGo() {
+  const email = document.getElementById('setup-email').value.trim();
+  const hh = document.getElementById('setup-inp').value.trim().toUpperCase();
+  const btn = document.getElementById('setup-btn');
+  const status = document.getElementById('setup-status');
+
+  btn.disabled = true;
+  btn.textContent = 'Fetching…';
+  status.textContent = '📡 Triggering your data sync…';
+
+  try {
+    // Fire n8n webhook
+    await fetch(N8N_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, household: hh })
+    });
+  } catch(e) {
+    // Webhook may return non-200 but still trigger — continue to poll
+  }
+
+  // Save household locally
+  setActive(hh);
+  status.textContent = '⏳ Syncing orders, please wait…';
+
+  // Poll Supabase for up to 30s until rows appear
+  let attempts = 0;
+  const maxAttempts = 10;
+  const poll = setInterval(async () => {
+    attempts++;
+    try {
+      const rows = await sbFetch(`purchases?household=eq.${encodeURIComponent(hh)}&order=purchase_date.asc&limit=1`);
+      if (rows.length > 0 || attempts >= maxAttempts) {
+        clearInterval(poll);
+        document.getElementById('setup').classList.add('hidden');
+        loadAndRender();
+      } else {
+        status.textContent = `⏳ Still syncing… (${attempts * 3}s)`;
+      }
+    } catch(e) {
+      clearInterval(poll);
+      document.getElementById('setup').classList.add('hidden');
+      loadAndRender();
+    }
+  }, 3000);
+}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 
 initApp();
