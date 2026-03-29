@@ -74,22 +74,12 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);max-width:430p
 
 /* HERO */
 .hero{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:20px;margin:14px 0 10px;position:relative;overflow:hidden}
-.hero::after{content:'';position:absolute;top:-50px;right:-30px;width:130px;height:130px;border-radius:50%;background:var(--acc-dim);pointer-events:none}
 .hero-eye{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:1.2px;font-weight:600;margin-bottom:8px}
 .hero-h{font-size:24px;font-weight:600;letter-spacing:-0.4px;line-height:1.25;margin-bottom:5px}
 .c-red{color:var(--red)}.c-ora{color:var(--ora)}.c-amb{color:var(--amb)}.c-grn{color:var(--grn)}
 .hero-sub{font-size:13px;color:var(--t2);line-height:1.55}
 .order-btn{width:100%;margin-top:15px;padding:13px;border-radius:12px;background:var(--acc);color:#fff;border:none;font-family:var(--font);font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px}
 .order-btn:active{transform:scale(0.98)}
-
-/* SECTION */
-.sh{display:flex;align-items:center;justify-content:space-between;margin:20px 0 8px}
-.sh-left{display:flex;align-items:center;gap:8px}
-.sh-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.sh-info{}
-.sh-title{font-size:12px;font-weight:600;color:var(--tx);letter-spacing:0.2px}
-.sh-sub{font-size:10px;color:var(--t3);margin-top:1px}
-.sh-n{font-size:11px;color:var(--t3);font-family:var(--mono);background:var(--s2);padding:3px 8px;border-radius:10px}
 
 /* ITEM CARDS */
 .items{display:flex;flex-direction:column;gap:6px;margin-bottom:4px}
@@ -122,57 +112,6 @@ body{font-family:var(--font);background:var(--bg);color:var(--tx);max-width:430p
 .dp.safe{background:var(--grn-d);color:var(--grn)}
 .od{font-size:10px;color:var(--t3);font-family:var(--mono)}
 
-/* EMPTY */
-.empty{text-align:center;padding:56px 20px}
-.empty-icon{font-size:46px;margin-bottom:14px;opacity:0.3}
-.empty-t{font-size:17px;font-weight:600;color:var(--t2);margin-bottom:6px}
-.empty-s{font-size:13px;color:var(--t3);line-height:1.6}
-
-/* ADD PAGE */
-.add-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin:10px 0 8px}
-.add-card-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.add-card-icon{font-size:22px}
-.add-card-title{font-size:14px;font-weight:600}
-.add-card-sub{font-size:12px;color:var(--t2);margin-top:1px}
-.file-btn{display:block;width:100%;padding:12px;background:var(--acc);color:#fff;border-radius:10px;text-align:center;font-size:14px;font-weight:600;cursor:pointer}
-.file-status{font-size:12px;color:var(--t3);margin-top:8px;text-align:center;min-height:18px}
-textarea{width:100%;min-height:130px;background:var(--s2);border:1px solid var(--s3);border-radius:var(--rsm);color:var(--tx);font-family:var(--font);font-size:13px;padding:13px;resize:none;outline:none;line-height:1.6}
-textarea:focus{border-color:var(--acc)}
-textarea::placeholder{color:var(--t3)}
-.btn{width:100%;padding:14px;border-radius:var(--r);border:none;font-family:var(--font);font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;margin-top:8px;transition:all 0.15s}
-.btn-p{background:var(--acc);color:#fff}.btn-p:active{transform:scale(0.98)}
-.btn-g{background:var(--s2);color:var(--t2);border:1px solid var(--border)}
-.btn-r{background:var(--red-d);color:var(--red);border:1px solid var(--red-b)}
-.pv-wrap{margin-top:14px}
-.pv-lbl{font-size:11px;color:var(--t3);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
-.pv-list{background:var(--s1);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;margin-bottom:8px}
-.pv-item{display:flex;align-items:center;gap:9px;padding:10px 13px;border-bottom:1px solid var(--border);font-size:13px}
-.pv-item:last-child{border-bottom:none}
-.pv-n{flex:1;font-weight:500}
-.pv-q{font-family:var(--mono);font-size:12px;color:var(--acc);font-weight:500}
-.hist-item{background:var(--s1);border:1px solid var(--border);border-radius:var(--rsm);padding:11px 13px;margin-bottom:5px;display:flex;justify-content:space-between;align-items:center}
-.hist-d{font-size:13px;font-weight:500}
-.hist-m{font-size:11px;color:var(--t3);margin-top:2px;font-family:var(--mono)}
-.hist-b{font-size:11px;padding:3px 9px;border-radius:18px;background:var(--grn-d);color:var(--grn);font-weight:600;font-family:var(--mono)}
-.sec-lbl{font-size:11px;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin:20px 0 8px}
-
-/* INSIGHTS */
-.stat-g{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 18px}
-.sc{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:14px}
-.sc-n{font-size:27px;font-weight:600;letter-spacing:-1px;line-height:1;color:var(--tx)}
-.sc-u{font-size:12px;color:var(--acc);font-weight:500;margin-left:2px}
-.sc-l{font-size:11px;color:var(--t3);margin-top:5px;font-weight:500}
-.ic{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:15px;margin-bottom:9px}
-.ic-t{font-size:11px;font-weight:600;color:var(--t3);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:11px}
-.ir2{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
-.ir2:last-child{border-bottom:none;padding-bottom:0}
-.iv{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--acc)}
-.br{display:flex;align-items:center;gap:9px;margin-bottom:9px}
-.bn{font-size:12px;color:var(--t2);width:100px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bt{flex:1;height:4px;background:var(--s3);border-radius:2px;overflow:hidden}
-.bf{height:100%;border-radius:2px;background:var(--acc)}
-.bv{font-size:11px;color:var(--t3);font-family:var(--mono);width:38px;text-align:right;flex-shrink:0}
-
 /* BNAV */
 .bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(10,10,15,0.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);padding-bottom:env(safe-area-inset-bottom,0)}
 .nb{display:flex;flex-direction:column;align-items:center;padding:10px 0 8px;cursor:pointer;border:none;background:none;color:var(--t3);font-family:var(--font);font-size:10px;font-weight:500;gap:4px;transition:color 0.15s;letter-spacing:0.3px}
@@ -183,29 +122,20 @@ textarea::placeholder{color:var(--t3)}
 .toast{position:fixed;bottom:94px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--s3);color:var(--tx);padding:10px 18px;border-radius:22px;font-size:13px;font-weight:500;opacity:0;transition:all 0.22s;z-index:300;border:1px solid var(--border);white-space:nowrap;max-width:calc(100% - 40px);text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* PWA banner */
-.inst-b{background:var(--s1);border:1px solid var(--border);border-radius:var(--rsm);padding:11px 13px;margin-bottom:10px;display:flex;align-items:center;gap:9px}
-.inst-t{flex:1;font-size:12px;color:var(--t2);line-height:1.4}
-.inst-t strong{display:block;color:var(--tx);font-size:13px;margin-bottom:1px}
-.inst-btn{background:var(--acc);color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font)}
-
 @keyframes fu{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
-code{font-family:var(--mono);font-size:12px;background:var(--s3);padding:1px 5px;border-radius:4px}
 </style>
 </head>
 <body>
 
-<!-- SETUP SCREEN -->
 <div class="setup" id="setup">
   <div class="setup-logo">🏠</div>
   <div class="setup-title">Welcome to PantryIQ</div>
   <div class="setup-sub">Enter your household name to access your pantry. Each household has its own private data.</div>
   <div class="setup-label">Your Household Name</div>
   <input class="setup-input" id="setup-inp" type="text" maxlength="20"
-    placeholder="e.g. Kritica, HomeBlr, Family1"
+    placeholder="e.g. HOME1"
     oninput="onSetupInput(this)"
     onkeydown="if(event.key==='Enter')setupGo()">
-  <div class="setup-hint">Letters and numbers only · Same name on all your devices = shared pantry</div>
   <button class="setup-btn" id="setup-btn" onclick="setupGo()" disabled>Enter My Pantry →</button>
   <div class="chips-wrap" id="chips-wrap" style="display:none">
     <div class="chips-label">Or switch to existing</div>
@@ -213,7 +143,6 @@ code{font-family:var(--mono);font-size:12px;background:var(--s3);padding:1px 5px
   </div>
 </div>
 
-<!-- APP -->
 <header class="hdr">
   <div class="hdr-i">
     <div class="logo">Pantry<b>IQ</b></div>
@@ -231,51 +160,14 @@ code{font-family:var(--mono);font-size:12px;background:var(--s3);padding:1px 5px
   <div class="page" id="page-add">
     <div style="padding:18px 0 4px">
       <div style="font-size:22px;font-weight:600;letter-spacing:-0.3px">Add Bills</div>
-      <div style="font-size:13px;color:var(--t2);margin-top:4px">Keep your pantry up to date.</div>
+      <div style="font-size:13px;color:var(--t2);margin-top:4px">Paste your order confirmation text.</div>
     </div>
-    <div id="inst-slot"></div>
-
     <div class="add-card">
-      <div class="add-card-hdr">
-        <div class="add-card-icon">📧</div>
-        <div>
-          <div class="add-card-title">Paste delivery email</div>
-          <div class="add-card-sub">Open Swiggy email → copy all → paste here</div>
-        </div>
-      </div>
-      <textarea id="inv-txt" placeholder="Paste your Swiggy delivery email text here..."></textarea>
+      <textarea id="inv-txt" placeholder="Paste Swiggy email text here..."></textarea>
       <button class="btn btn-p" onclick="parse()">Add Order</button>
     </div>
-
-    <div class="add-card">
-      <div class="add-card-hdr">
-        <div class="add-card-icon">📂</div>
-        <div>
-          <div class="add-card-title">Upload data file</div>
-          <div class="add-card-sub">Import from Claude's data export</div>
-        </div>
-      </div>
-      <label class="file-btn">
-        Choose File
-        <input type="file" accept="*/*" id="jf" onchange="onJSON(this)" style="display:none">
-      </label>
-      <div class="file-status" id="file-status">No file chosen</div>
-    </div>
-
     <div id="preview"></div>
     <div id="hist" style="margin-top:16px"></div>
-
-    <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--border)">
-      <div class="sec-lbl">🏠 Household</div>
-      <div id="hh-info" style="font-size:13px;color:var(--t2);margin-bottom:10px"></div>
-      <button class="btn btn-g" onclick="showSetup()">Switch Household</button>
-    </div>
-
-    <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
-      <div class="sec-lbl" style="color:var(--red)">Danger Zone</div>
-      <button class="btn btn-r" onclick="resetAll()">🗑️ Clear All Data</button>
-      <div style="font-size:11px;color:var(--t3);margin-top:8px;text-align:center;line-height:1.5">Only clears this household. Cannot be undone.</div>
-    </div>
   </div>
 
   <div class="page" id="page-insights"><div id="ins-c"></div></div>
@@ -290,11 +182,10 @@ code{font-family:var(--mono);font-size:12px;background:var(--s3);padding:1px 5px
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── SUPABASE CONFIG ───
+// --- CONFIG & SUPABASE ---
 const SB_URL = 'https://hkrxlerbmnilddbninbc.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhrcnhsZXJibW5pbGRkYm5pbmJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MDkxMDMsImV4cCI6MjA5MDI4NTEwM30.3eui_iQ3v5HqW8LQSAVb4hiCciCEBtGxRZkgLj8HhD0';
 
-// ─── SUPABASE HELPERS ───
 async function sbFetch(path, opts={}){
   const res = await fetch(SB_URL+'/rest/v1/'+path, {
     headers:{
@@ -306,619 +197,149 @@ async function sbFetch(path, opts={}){
     },
     ...opts
   });
-  if(!res.ok){
-    const err = await res.text();
-    throw new Error(err);
-  }
   const text = await res.text();
   return text ? JSON.parse(text) : [];
 }
 
-async function getHouseholdData(household){
-  return sbFetch(`purchases?household=eq.${encodeURIComponent(household)}&order=purchase_date.asc&limit=5000`);
-}
-
-async function insertRows(rows){
-  return sbFetch('purchases', {
-    method:'POST',
-    prefer:'return=minimal',
-    body: JSON.stringify(rows)
-  });
-}
-
-async function deleteHousehold(household){
-  return sbFetch(`purchases?household=eq.${encodeURIComponent(household)}`, {
-    method:'DELETE'
-  });
-}
-
-// ─── HOUSEHOLD SYSTEM ───
-const HH_LIST_KEY = 'piq_households';
-const HH_ACTIVE_KEY = 'piq_active';
-
-function getHouseholds(){try{return JSON.parse(localStorage.getItem(HH_LIST_KEY))||[]}catch{return[]}}
-function saveHouseholds(l){localStorage.setItem(HH_LIST_KEY,JSON.stringify(l))}
-function getActive(){return localStorage.getItem(HH_ACTIVE_KEY)||null}
-function setActive(c){localStorage.setItem(HH_ACTIVE_KEY,c)}
-
-// ─── INIT ───
-async function initApp(){
-  const active = getActive();
-  if(active){
-    hideSetup();
-    updateHdrUI();
-    await loadAndRender();
-  } else {
-    showSetup();
-  }
-}
-
-function showSetup(){
-  const s = document.getElementById('setup');
-  if(s) s.classList.remove('hidden');
-  const inp = document.getElementById('setup-inp');
-  if(inp){ inp.value=''; }
-  const btn = document.getElementById('setup-btn');
-  if(btn) btn.disabled = true;
-  renderChips();
-}
-
-function hideSetup(){
-  const s = document.getElementById('setup');
-  if(s) s.classList.add('hidden');
-}
-
-function renderChips(){
-  const list = getHouseholds();
-  const wrap = document.getElementById('chips-wrap');
-  const chips = document.getElementById('chips');
-  if(!wrap||!chips) return;
-  if(!list.length){wrap.style.display='none';return}
-  wrap.style.display='block';
-  chips.innerHTML = list.map(h=>`
-    <span class="chip" onclick="switchHousehold('${h}')">
-      🏠 ${h}
-      <span class="chip-x" onclick="removeChip(event,'${h}')">×</span>
-    </span>`).join('');
-}
-
-function onSetupInput(input){
-  input.value = input.value.replace(/[^a-zA-Z0-9]/g,'');
-  const btn = document.getElementById('setup-btn');
-  if(btn) btn.disabled = input.value.length < 2;
-}
-
-function setupGo(){
-  const inp = document.getElementById('setup-inp');
-  if(!inp) return;
-  const code = inp.value.trim().toUpperCase();
-  if(code.length < 2){toast('Enter at least 2 characters');return}
-  enterHousehold(code);
-}
-
-async function enterHousehold(code){
-  const list = getHouseholds();
-  if(!list.includes(code)){ list.push(code); saveHouseholds(list); }
-  setActive(code);
-  hideSetup();
-  updateHdrUI();
-  await loadAndRender();
-  go('home');
-  toast('🏠 '+code);
-}
-
-async function switchHousehold(code){
-  setActive(code);
-  hideSetup();
-  updateHdrUI();
-  await loadAndRender();
-  go('home');
-  toast('🏠 Switched to '+code);
-}
-
-function removeChip(e, code){
-  e.stopPropagation();
-  if(!confirm(`Remove "${code}" from list?`)) return;
-  const list = getHouseholds().filter(h=>h!==code);
-  saveHouseholds(list);
-  if(getActive()===code){ setActive(null); showSetup(); }
-  else renderChips();
-}
-
-function updateHdrUI(){
-  const code = getActive()||'';
-  const hc = document.getElementById('hdr-code');
-  if(hc) hc.textContent = '🏠 '+code;
-  const hhi = document.getElementById('hh-info');
-  if(hhi) hhi.textContent = 'Active: '+code;
-}
-
-// ─── DATA LOADER ───
-let _cache = null; // cache parsed items in memory
-
-async function loadAndRender(){
-  const household = getActive();
-  if(!household) return;
-
-  // Show loading
-  const hc = document.getElementById('home-c');
-  if(hc) hc.innerHTML = `<div class="loading-state"><div class="loading-spinner"></div><div class="loading-text">Loading your pantry...</div></div>`;
-
-  try {
-    const rows = await getHouseholdData(household);
-    _cache = buildItemsFromRows(rows);
-    renderHome();
-    renderInsights();
-    renderHist(rows);
-    // Update last sync time
-    const syncEl = document.getElementById('hdr-sync');
-    if(syncEl) syncEl.textContent = 'Synced now';
-  } catch(err){
-    if(hc) hc.innerHTML = `<div class="empty"><div class="empty-icon">⚠️</div><div class="empty-t">Could not load data</div><div class="empty-s">${err.message}</div></div>`;
-    toast('❌ Load failed: '+err.message.slice(0,40));
-  }
-}
-
-// ─── BUILD ITEMS FROM SUPABASE ROWS ───
-function buildItemsFromRows(rows){
+// --- DATA INGESTION (UPDATED FOR BASE_PRODUCT) ---
+function buildItemsFromRows(rows) {
   const items = {};
-  for(const row of rows){
-    const key = row.item_key || slugify(row.item_name||'');
-    if(!key) continue;
-    if(!items[key]){
+  for (const row of rows) {
+    // 1. Group by base_product if available, fallback to item_name
+    const key = row.base_product || row.item_name || 'unknown';
+    
+    if (!items[key]) {
       items[key] = {
-        name: row.item_name||key,
-        unit: row.unit||'pcs',
+        name: row.base_product || row.item_name || 'Unknown Item',
+        unit: row.unit || 'pcs',
         purchases: []
       };
     }
-    if(row.purchase_date){
+    
+    if (row.purchase_date) {
       items[key].purchases.push({
         date: row.purchase_date,
-        qty: row.qty||1
+        qty: row.qty || 1
       });
     }
   }
-  // Sort purchases by date for each item
-  for(const k of Object.keys(items)){
-    items[k].purchases.sort((a,b)=>new Date(a.date)-new Date(b.date));
+  for (const k of Object.keys(items)) {
+    items[k].purchases.sort((a, b) => new Date(a.date) - new Date(b.date));
   }
   return items;
 }
 
-function slugify(name){
-  return name.toLowerCase()
-    .replace(/\s*\(.*?\)/g,'')
-    .replace(/[^a-z0-9\s]/g,'')
-    .replace(/\s+/g,'-')
-    .trim();
+// --- HOUSEHOLD HELPERS ---
+const HH_ACTIVE_KEY = 'piq_active';
+function getActive(){return localStorage.getItem(HH_ACTIVE_KEY)}
+function setActive(c){localStorage.setItem(HH_ACTIVE_KEY,c)}
+
+async function loadAndRender(){
+  const hh = getActive();
+  if(!hh) return;
+  const hc = document.getElementById('home-c');
+  hc.innerHTML = '<div class="loading-state"><div class="loading-spinner"></div></div>';
+  
+  try {
+    const rows = await sbFetch(`purchases?household=eq.${encodeURIComponent(hh)}&order=purchase_date.asc`);
+    _cache = buildItemsFromRows(rows);
+    renderHome();
+    renderInsights();
+  } catch(e) {
+    toast('❌ Error: ' + e.message);
+  }
 }
 
-// ─── EMOJI MAP ───
-const EM={lemon:'🍋',chicken:'🍗',egg:'🥚',onion:'🧅',coriander:'🌿',bread:'🍞',milk:'🥛',curd:'🥛',yogurt:'🥛',spinach:'🥬',tomato:'🍅',chilli:'🌶',garlic:'🧄',cucumber:'🥒',banana:'🍌',potato:'🥔',ginger:'🫚',batter:'🫙',idly:'🫙',olive:'🫙',oil:'🫙',surf:'🧺',detergent:'🧺',toothpaste:'🪥',toothbrush:'🪥',gourd:'🥬',atta:'🌾',flour:'🌾',epigamia:'🥛',noodles:'🍜',hakka:'🍜',butter:'🧈',chutney:'🫙',dal:'🫘',toor:'🫘',poha:'🌾',bhindi:'🥬',ladyfinger:'🥬',haldiram:'🍿',bhujia:'🍿',cashew:'🥜',paneer:'🧀',tofu:'🧀',radish:'🥕',pomegranate:'🍎',avocado:'🥑',corn:'🌽',frozen:'❄️',peas:'🫛',powder:'🫙',masala:'🫙',besan:'🫙',snack:'🍿',rice:'🍚',sugar:'🍚',salt:'🧂',soap:'🧼',shampoo:'🧴',default:'🛒'};
+// --- EMOJI & RENDER ---
+const EM={lemon:'🍋',chicken:'🍗',egg:'🥚',onion:'🧅',coriander:'🌿',bread:'🍞',milk:'🥛',curd:'🥛',spinach:'🥬',tomato:'🍅',chilli:'🌶',garlic:'🧄',cucumber:'🥒',banana:'🍌',potato:'🥔',ginger:'🫚',default:'🛒'};
 function em(n){const l=n.toLowerCase();for(const[k,v]of Object.entries(EM)){if(l.includes(k))return v}return EM.default}
 
-// ─── FORECAST ENGINE ───
-function forecast(items){
-  const today = new Date();
-  const results = [];
-
-  for(const [key, d] of Object.entries(items)){
-    const ps = d.purchases;
-    if(!ps.length) continue;
-
-    const totalQty = ps.reduce((s,p)=>s+p.qty, 0);
-    const first = new Date(ps[0].date);
-    const last = new Date(ps[ps.length-1].date);
-    const span = Math.max(14, (last-first)/86400000);
-    const daily = totalQty / span;
-    const daysSince = (today-last) / 86400000;
-    const remaining = Math.max(0, ps[ps.length-1].qty - daily*daysSince);
-    const daysLeft = daily > 0 ? Math.round(remaining/daily) : 999;
-    const oosDate = new Date(today.getTime() + daysLeft*86400000);
-
-    // Avg reorder frequency
-    let freq = 30;
-    if(ps.length > 1){
-      const gaps = [];
-      for(let i=1;i<ps.length;i++) gaps.push((new Date(ps[i].date)-new Date(ps[i-1].date))/86400000);
-      freq = Math.round(gaps.reduce((s,g)=>s+g,0)/gaps.length);
-    }
-
-    results.push({
-      key, name:d.name, e:em(d.name),
-      daysLeft, oosDate: oosDate.toLocaleDateString('en-IN',{day:'numeric',month:'short'}),
-      remaining: Math.round(remaining*10)/10,
-      unit: d.unit||'',
-      daily: Math.round(daily*100)/100,
-      freq, n: ps.length,
-      lastBought: last.toLocaleDateString('en-IN',{day:'numeric',month:'short'})
-    });
-  }
-
-  return results.sort((a,b)=>a.daysLeft-b.daysLeft);
-}
-
-// ─── 3-BUCKET CRITICAL CLASSIFIER ───
-// Bucket A: High frequency + OOS (staples running out — most urgent)
-// Bucket B: Medium frequency + OOS (regular items running out)
-// Bucket C: Low frequency + OOS or running low (occasional items)
-function classify(items, allForecasts){
-  // Get frequency distribution
-  const freqs = allForecasts.map(i=>i.n);
-  const maxN = Math.max(...freqs);
-  const avgN = freqs.reduce((s,f)=>s+f,0)/freqs.length;
-
-  // Thresholds based on your actual data distribution
-  const hiThresh = Math.max(avgN * 1.3, 8);   // top tier: bought way more than average
-  const midThresh = Math.max(avgN * 0.6, 4);  // mid tier
-
-  return allForecasts.map(item => {
-    let bucket = 'safe';
-    if(item.daysLeft <= 10){
-      if(item.n >= hiThresh) bucket = 'cat-a';
-      else if(item.n >= midThresh) bucket = 'cat-b';
-      else bucket = 'cat-c';
-    }
-    return {...item, bucket};
-  });
-}
-
-// ─── RENDER HOME ───
 function renderHome(){
   const c = document.getElementById('home-c');
-  if(!c) return;
-  if(!_cache || !Object.keys(_cache).length){
-    c.innerHTML = `<div class="empty"><div class="empty-icon">🛒</div><div class="empty-t">No data yet</div><div class="empty-s">Tap <strong>+ Add Bill</strong> to import your Instamart history.</div></div>`;
-    return;
-  }
-
-  const raw = forecast(_cache);
-  const all = classify(_cache, raw);
-
-  const catA = all.filter(i=>i.bucket==='cat-a');
-  const catB = all.filter(i=>i.bucket==='cat-b');
-  const catC = all.filter(i=>i.bucket==='cat-c');
-  const safe = all.filter(i=>i.bucket==='safe');
-  const urgent = [...catA,...catB,...catC];
-
-  // Hero
-  let hl='', sub='';
-  if(!urgent.length){
-    hl=`<span class="c-grn">All stocked</span> 🎉`;
-    sub=`${safe.length} items in good shape. Nothing to order.`;
-  } else {
-    const parts=[];
-    if(catA.length) parts.push(`<span class="c-red">${catA.length} staple${catA.length>1?'s':''}</span>`);
-    if(catB.length) parts.push(`<span class="c-ora">${catB.length} regular${catB.length>1?'s':''}</span>`);
-    if(catC.length) parts.push(`<span class="c-amb">${catC.length} occasional${catC.length>1?'s':''}</span>`);
-    hl = parts.join(', ')+' need restocking';
-    sub = `${urgent.length} item${urgent.length>1?'s':''} to order · ${safe.length} stocked`;
-  }
-
+  const forecasts = forecast(_cache);
+  const items = classify(_cache, forecasts);
+  
+  const urgent = items.filter(i => i.bucket !== 'safe');
+  
   let html = `<div class="hero">
-    <div class="hero-eye">${new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'})}</div>
-    <div class="hero-h">${hl}</div>
-    <div class="hero-sub">${sub}</div>
-    ${urgent.length?`<button class="order-btn" onclick="copyList()">📋 Copy Shopping List (${urgent.length} items)</button>`:''}
+    <div class="hero-eye">${new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'short'})}</div>
+    <div class="hero-h">${urgent.length} items to order</div>
+    <div class="hero-sub">${items.length} total products tracked</div>
   </div>`;
 
-  function sec(color, title, sub, arr){
-    if(!arr.length) return '';
-    return `<div class="sh">
-      <div class="sh-left">
-        <div class="sh-dot" style="background:${color}"></div>
-        <div class="sh-info">
-          <div class="sh-title">${title}</div>
-          <div class="sh-sub">${sub}</div>
-        </div>
+  html += `<div class="items">${items.map(i => `
+    <div class="item ${i.bucket}">
+      <div class="ie">${em(i.name)}</div>
+      <div class="ib">
+        <div class="in">${i.name}</div>
+        <div class="im">last: ${i.lastBought} · ${i.n}x</div>
       </div>
-      <div class="sh-n">${arr.length}</div>
+      <div class="ir">
+        <div class="dp ${i.bucket}">${i.daysLeft}d</div>
+      </div>
     </div>
-    <div class="items">${arr.map((i,x)=>card(i,x*0.03)).join('')}</div>`;
-  }
-
-  html += sec('var(--red)',   '🔴 Order Now — Staples',    'High frequency items · OOS',          catA);
-  html += sec('var(--ora)',   '🟠 Order Now — Regulars',   'Medium frequency items · OOS',         catB);
-  html += sec('var(--amb)',   '🟡 Running Low',             'Order in the next few days',           catC);
-  html += sec('var(--grn)',   '✅ Well Stocked',            'No action needed',                     safe);
-
+  `).join('')}</div>`;
   c.innerHTML = html;
 }
 
-function card(i, delay){
-  const lbl = i.daysLeft>=999?'30d+':i.daysLeft===0?'OOS now':i.daysLeft===1?'1 day':`${i.daysLeft}d`;
-  const b = i.bucket;
-  let tagText='', tagCls='';
-  if(b==='cat-a'){tagText=`staple · ${i.n}x`;tagCls='tag-a'}
-  else if(b==='cat-b'){tagText=`regular · ${i.n}x`;tagCls='tag-b'}
-  else if(b==='cat-c'){tagText=`occasional · ${i.n}x`;tagCls='tag-c'}
-
-  return `<div class="item ${b}" style="animation-delay:${delay}s">
-    <div class="ie">${i.e}</div>
-    <div class="ib">
-      <div class="in">${i.name}</div>
-      <div class="im">
-        ${tagText?`<span class="tag ${tagCls}">${tagText}</span>`:''}
-        <span>last: ${i.lastBought}</span>
-      </div>
-    </div>
-    <div class="ir">
-      <div class="dp ${b}">${lbl}</div>
-      <div class="od">${i.daysLeft<999?'~'+i.oosDate:''}</div>
-    </div>
-  </div>`;
+// --- LOGIC ENGINE ---
+function forecast(items) {
+  const today = new Date();
+  return Object.entries(items).map(([key, d]) => {
+    const ps = d.purchases;
+    const last = new Date(ps[ps.length-1].date);
+    let freq = 30;
+    if(ps.length > 1) {
+      const span = (new Date(ps[ps.length-1].date) - new Date(ps[0].date)) / 86400000;
+      freq = Math.max(3, span / (ps.length-1));
+    }
+    const daysSince = (today - last) / 86400000;
+    const daysLeft = Math.max(0, Math.round(freq - daysSince));
+    return { name: d.name, daysLeft, n: ps.length, lastBought: last.toLocaleDateString('en-IN',{day:'numeric',month:'short'}) };
+  }).sort((a,b) => a.daysLeft - b.daysLeft);
 }
 
-function copyList(){
-  if(!_cache) return;
-  const all = classify(_cache, forecast(_cache));
-  const urgent = all.filter(i=>i.bucket!=='safe');
-  const txt = `🛒 PantryIQ · ${getActive()||''} · ${new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short'})}\n\n`
-    + urgent.map(i=>`${i.e} ${i.name}  ${i.bucket==='cat-a'?'🔴':i.bucket==='cat-b'?'🟠':'🟡'}`).join('\n');
-  navigator.clipboard.writeText(txt).then(()=>toast('✅ List copied!')).catch(()=>toast('Copied!'));
-}
-
-// ─── RENDER INSIGHTS ───
-function renderInsights(){
-  const c = document.getElementById('ins-c');
-  if(!c) return;
-  if(!_cache||!Object.keys(_cache).length){
-    c.innerHTML=`<div class="empty"><div class="empty-icon">📈</div><div class="empty-t">No insights yet</div><div class="empty-s">Add invoices to see patterns.</div></div>`;
-    return;
-  }
-  const all = forecast(_cache);
-  const prods = all.length;
-  const freqs = all.filter(i=>i.n>1).map(i=>i.freq);
-  const avgf = freqs.length?Math.round(freqs.reduce((s,f)=>s+f,0)/freqs.length):0;
-  const top = all.slice().sort((a,b)=>b.daily-a.daily).slice(0,5);
-  const soon = classify(_cache,all).filter(i=>i.bucket!=='safe'&&i.daysLeft<=14);
-
-  let html=`<div style="padding:18px 0 4px">
-    <div style="font-size:22px;font-weight:600;letter-spacing:-0.3px">${getActive()||'Your'} Pantry</div>
-  </div>
-  <div class="stat-g">
-    <div class="sc"><div class="sc-n">${prods}</div><div class="sc-l">Products tracked</div></div>
-    <div class="sc"><div class="sc-n">${avgf}<span class="sc-u">d</span></div><div class="sc-l">Avg reorder</div></div>
-  </div>
-  <div class="ic"><div class="ic-t">⚡ Fastest Moving</div>`;
-  top.forEach(i=>{
-    const pct=Math.min(100,Math.round((i.daily/top[0].daily)*100));
-    html+=`<div class="br"><div class="bn">${i.e} ${i.name.split(' ').slice(0,2).join(' ')}</div><div class="bt"><div class="bf" style="width:${pct}%"></div></div><div class="bv">${i.daily}d</div></div>`;
+function classify(items, forecasts) {
+  return forecasts.map(i => {
+    let bucket = 'safe';
+    if(i.daysLeft <= 2) bucket = 'cat-a';
+    else if(i.daysLeft <= 7) bucket = 'cat-b';
+    return {...i, bucket};
   });
-  html+=`</div><div class="ic"><div class="ic-t">📅 Next 14 Days</div>`;
-  if(!soon.length) html+=`<div style="font-size:13px;color:var(--t3);padding:6px 0">All stocked for 2 weeks 🎉</div>`;
-  else soon.forEach(i=>{
-    const col=i.bucket==='cat-a'?'var(--red)':i.bucket==='cat-b'?'var(--ora)':'var(--amb)';
-    html+=`<div class="ir2"><span>${i.e} ${i.name}</span><span class="iv" style="color:${col}">${i.oosDate}</span></div>`;
-  });
-  html+=`</div><div class="ic"><div class="ic-t">🔁 Reorder Patterns</div>`;
-  all.filter(i=>i.n>2).slice(0,8).forEach(i=>{
-    html+=`<div class="ir2"><span>${i.e} ${i.name}</span><span class="iv">~every ${i.freq}d</span></div>`;
-  });
-  html+=`</div>`;
-  c.innerHTML=html;
 }
 
-// ─── RENDER HISTORY ───
-function renderHist(rows){
-  const c = document.getElementById('hist');
-  if(!c) return;
-  const hhi = document.getElementById('hh-info');
-  if(hhi) hhi.textContent = 'Active: '+(getActive()||'—');
-  if(!rows||!rows.length){c.innerHTML='';return}
-
-  // Group by date to show invoice history
-  const byDate = {};
-  rows.forEach(r=>{
-    const d = r.purchase_date||'unknown';
-    if(!byDate[d]) byDate[d]=0;
-    byDate[d]++;
-  });
-  const dates = Object.keys(byDate).sort((a,b)=>new Date(b)-new Date(a)).slice(0,15);
-
-  let h=`<div class="sec-lbl">Import History (${dates.length} orders)</div>`;
-  dates.forEach(d=>{
-    h+=`<div class="hist-item">
-      <div><div class="hist-d">${fd(d)}</div><div class="hist-m">${byDate[d]} items</div></div>
-      <div class="hist-b">${byDate[d]}</div>
-    </div>`;
-  });
-  c.innerHTML=h;
-}
-
-// ─── INVOICE PARSER ───
-function parse(){
-  const itEl = document.getElementById('inv-txt');
-  if(!itEl) return;
-  const t = itEl.value.trim();
-  if(!t){toast('Paste delivery email first');return}
-  if(t.startsWith('{')){
-    try{const j=JSON.parse(t);if(j.items&&j.invoices){importLegacyJSON(j);return}}catch{}
-  }
-  const r = swParse(t);
-  if(r.items.length) showPreview(r);
-  else{
-    const pv=document.getElementById('preview');
-    if(pv) pv.innerHTML=`<div class="add-card" style="text-align:center"><div style="font-size:24px;margin-bottom:8px">💡</div><div style="font-size:14px;font-weight:600;margin-bottom:5px">Nothing recognised</div><div style="font-size:12px;color:var(--t2);line-height:1.7">Copy the full Swiggy delivery email and paste it above.</div></div>`;
-  }
-}
-
-function swParse(txt){
-  let od = new Date().toISOString().split('T')[0];
-  const dm = txt.match(/(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s+\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{4}/i);
-  if(dm){try{od=new Date(dm[0]).toISOString().split('T')[0]}catch{}}
-  const items=[],seen={};
-  for(const line of txt.split(/\n|\r/)){
-    const m=line.trim().match(/^(\d+)\s*x\s+(.+?)₹[\d.]+/);
-    if(!m)continue;
-    const qty=parseInt(m[1]);let name=m[2].trim();
-    if(/flyer|sample|handling|delivery|grand total|item bill/i.test(name))continue;
-    name=name.replace(/\s*[-–]\s*\d+\s*(pcs|pack|gm|g|kg|ml|L|ltr)\b/gi,'').trim();
-    const k=name.toLowerCase();
-    if(seen[k])seen[k].qty+=qty;
-    else{seen[k]={name,qty,unit:'pcs'};items.push(seen[k])}
-  }
-  return{order_date:od,items};
-}
-
-let _pending = null;
-function showPreview(parsed){
-  _pending = parsed;
-  let h=`<div class="pv-wrap"><div class="pv-lbl">Found ${parsed.items.length} items · ${fd(parsed.order_date)}</div><div class="pv-list">`;
-  parsed.items.forEach(item=>{
-    h+=`<div class="pv-item"><span style="font-size:18px">${em(item.name)}</span><span class="pv-n">${item.name}</span><span class="pv-q">×${item.qty}</span></div>`;
-  });
-  h+=`</div><button class="btn btn-p" onclick="saveInv()">💾 Save to Pantry</button></div>`;
-  const pv=document.getElementById('preview');
-  if(pv) pv.innerHTML=h;
-}
-
-async function saveInv(){
-  if(!_pending) return;
-  const household = getActive();
-  if(!household){toast('No household selected');return}
-
-  const rows = _pending.items.map(item=>({
-    household,
-    item_key: slugify(item.name),
+// --- SAVE (UPDATED TO PUSH BASE_PRODUCT) ---
+async function saveInv() {
+  const hh = getActive();
+  const rows = _pending.items.map(item => ({
+    household: hh,
+    item_key: null, 
     item_name: item.name,
-    unit: item.unit||'pcs',
+    base_product: item.name, // Will be cleaned by n8n
     purchase_date: _pending.order_date,
-    qty: item.qty,
-    price: null
+    qty: item.qty
   }));
-
-  try{
-    await insertRows(rows);
-    const pv=document.getElementById('preview');if(pv)pv.innerHTML='';
-    const it=document.getElementById('inv-txt');if(it)it.value='';
-    _pending=null;
-    toast('✅ Saved '+rows.length+' items!');
-    await loadAndRender();
-    go('home');
-  }catch(err){
-    toast('❌ Save failed: '+err.message.slice(0,40));
-  }
+  await sbFetch('purchases', { method:'POST', body: JSON.stringify(rows) });
+  toast('✅ Saved!');
+  loadAndRender();
+  go('home');
 }
 
-// ─── JSON FILE IMPORT ───
-function onJSON(input){
-  const f=input.files[0];if(!f)return;
-  const st=document.getElementById('file-status');
-  if(st)st.textContent='Reading '+f.name+'...';
-  const r=new FileReader();
-  r.onload=async e=>{
-    try{
-      let txt=e.target.result.trim();
-      if(txt.charCodeAt(0)===0xFEFF)txt=txt.slice(1);
-      const j=JSON.parse(txt);
-      if(!j.items||!j.invoices){
-        if(st)st.textContent='❌ Wrong file format';
-        toast('❌ Wrong file — use pantryiq-data.json');
-        return;
-      }
-      await importLegacyJSON(j);
-      if(st)st.textContent='✅ '+f.name+' imported!';
-    }catch(err){
-      if(st)st.textContent='❌ Could not read file';
-      toast('❌ '+err.message.slice(0,50));
-    }
-    input.value='';
-  };
-  r.onerror=()=>{
-    const st=document.getElementById('file-status');
-    if(st)st.textContent='❌ File read failed';
-    toast('❌ Could not open file');
-  };
-  r.readAsText(f,'UTF-8');
-}
-
-async function importLegacyJSON(j){
-  const household = getActive();
-  if(!household){toast('No household selected');return}
-  const rows=[];
-  for(const [key,val] of Object.entries(j.items)){
-    for(const p of val.purchases){
-      rows.push({
-        household,
-        item_key: key,
-        item_name: val.name,
-        unit: val.unit||'pcs',
-        purchase_date: p.date,
-        qty: p.qty||1,
-        price: null
-      });
-    }
-  }
-  try{
-    // Insert in batches of 200
-    for(let i=0;i<rows.length;i+=200){
-      await insertRows(rows.slice(i,i+200));
-    }
-    toast('✅ Imported '+Object.keys(j.items).length+' products!');
-    await loadAndRender();
-    go('home');
-  }catch(err){
-    toast('❌ Import failed: '+err.message.slice(0,40));
-  }
-}
-
-// ─── RESET ───
-async function resetAll(){
-  const code = getActive();
-  if(!confirm(`Delete ALL data for "${code}"? Cannot be undone.`)) return;
-  try{
-    await deleteHousehold(code);
-    _cache=null;
-    renderHome();
-    renderInsights();
-    const hist=document.getElementById('hist');if(hist)hist.innerHTML='';
-    toast('✅ '+code+' data cleared');
-    go('home');
-  }catch(err){
-    toast('❌ Reset failed: '+err.message.slice(0,40));
-  }
-}
-
-// ─── UTILS ───
-function fd(d){if(!d)return'—';try{return new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}catch{return d}}
-function toast(msg){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200)}
-
-// ─── NAVIGATION ───
-let _lastPage=null;
+// --- NAVIGATION & INIT ---
 function go(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
-  const pg=document.getElementById('page-'+name);if(pg)pg.classList.add('active');
-  const nb=document.getElementById('nb-'+name);if(nb)nb.classList.add('active');
-  if(name==='add') renderHist(_cache ? buildRowsFromCache() : []);
-  _lastPage=name;
-  window.scrollTo(0,0);
+  document.getElementById('page-'+name).classList.add('active');
 }
-
-function buildRowsFromCache(){
-  if(!_cache) return [];
-  const rows=[];
-  for(const[key,d] of Object.entries(_cache)){
-    for(const p of d.purchases){
-      rows.push({item_name:d.name,purchase_date:p.date,qty:p.qty});
-    }
-  }
-  return rows;
+function setupGo(){
+  setActive(document.getElementById('setup-inp').value.toUpperCase());
+  document.getElementById('setup').classList.add('hidden');
+  loadAndRender();
 }
+function onSetupInput(i){document.getElementById('setup-btn').disabled = i.value.length < 2;}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 
-// ─── PWA ───
-let _dip;
-window.addEventListener('beforeinstallprompt',e=>{
-  e.preventDefault();_dip=e;
-  const sl=document.getElementById('inst-slot');
-  if(sl)sl.innerHTML=`<div class="inst-b"><div style="font-size:20px">📱</div><div class="inst-t"><strong>Install PantryIQ</strong>Add to home screen</div><button class="inst-btn" onclick="installPWA()">Install</button></div>`;
-});
-function installPWA(){if(_dip){_dip.prompt();_dip.userChoice.then(()=>{_dip=null;const sl=document.getElementById('inst-slot');if(sl)sl.innerHTML=''})}}
-
-// ─── START ───
 initApp();
+async function initApp(){ if(getActive()) { document.getElementById('setup').classList.add('hidden'); loadAndRender(); } }
 </script>
 </body>
 </html>
