@@ -340,6 +340,51 @@ function toast(m){const t=document.getElementById('toast');t.textContent=m;t.cla
 
 initApp();
 async function initApp(){ if(getActive()) { document.getElementById('setup').classList.add('hidden'); loadAndRender(); } }
+
+
+function renderInsights() {
+  const c = document.getElementById('ins-c');
+  const forecasts = forecast(_cache);
+  const items = classify(_cache, forecasts);
+
+  if (!items.length) {
+    c.innerHTML = '<div class="loading-state"><div class="loading-text">No data yet.</div></div>';
+    return;
+  }
+
+  const totalItems = items.length;
+  const urgent = items.filter(i => i.bucket === 'cat-a').length;
+  const soon = items.filter(i => i.bucket === 'cat-b').length;
+  const okay = items.filter(i => i.bucket === 'cat-c').length;
+  const safe = items.filter(i => i.bucket === 'safe').length;
+
+  c.innerHTML = `
+    <div class="hero" style="margin-top:14px">
+      <div class="hero-eye">Insights</div>
+      <div class="hero-h">${totalItems} products tracked</div>
+      <div class="hero-sub">
+        <span class="c-red">${urgent} urgent</span> · 
+        <span class="c-ora">${soon} soon</span> · 
+        <span class="c-amb">${okay} okay</span> · 
+        <span class="c-grn">${safe} stocked</span>
+      </div>
+    </div>
+    <div class="items">
+      ${items.map(i => `
+        <div class="item ${i.bucket}">
+          <div class="ie">${em(i.name)}</div>
+          <div class="ib">
+            <div class="in">${i.name}</div>
+            <div class="im">bought ${i.n}x · last ${i.lastBought}</div>
+          </div>
+          <div class="ir">
+            <div class="dp ${i.bucket}">${i.daysLeft}d left</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+} 
 </script>
 </body>
 </html>
