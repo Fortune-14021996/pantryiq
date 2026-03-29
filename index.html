@@ -229,6 +229,9 @@ function buildItemsFromRows(rows) {
   return items;
 }
 
+// --- STATE ---
+let _cache = {};
+
 // --- HOUSEHOLD HELPERS ---
 const HH_ACTIVE_KEY = 'piq_active';
 function getActive(){return localStorage.getItem(HH_ACTIVE_KEY)}
